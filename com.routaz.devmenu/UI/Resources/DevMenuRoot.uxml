@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:ScrollView name="method-scroll" class="scroll-container">
+        <!-- Method UIs will be added here -->
+    </ui:ScrollView>
+</ui:UXML>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement xmlns:ui="UnityEngine.UIElements">
+        <ui:VisualElement name="method-root" class="devmethod-container">
+            <ui:Label name="method-title" class="devmethod-title"/>
+            <ui:VisualElement name="method-body" class="devmethod-body"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

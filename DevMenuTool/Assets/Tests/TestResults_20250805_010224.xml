@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="94" result="Failed(Child)" total="94" passed="87" failed="7" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.2112918">
+  <test-suite type="TestSuite" id="1120" name="DevMenuTool" fullname="DevMenuTool" runstate="Runnable" testcasecount="94" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.211292" total="94" passed="87" failed="7" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1021" name="DevMenuTool.dll" fullname="D:/GitHubRepos/UnityDevMenuTool/DevMenuTool/Library/ScriptAssemblies/DevMenuTool.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.057680" total="18" passed="16" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="37772" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1022" name="DevMenuTool" fullname="DevMenuTool" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.054346" total="18" passed="16" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1023" name="Tests" fullname="DevMenuTool.Tests" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.051622" total="18" passed="16" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="EnhancedDevMethodTests" fullname="DevMenuTool.Tests.EnhancedDevMethodTests" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.029202" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="GetCurrentParameters_ShouldReturnDefaultValues_WhenNoParametersSet" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.GetCurrentParameters_ShouldReturnDefaultValues_WhenNoParametersSet" methodname="GetCurrentParameters_ShouldReturnDefaultValues_WhenNoParametersSet" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="441543406" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.013775" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1005" name="Invoke_ShouldUseStoredParameters_WhenNoParametersSupplied" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.Invoke_ShouldUseStoredParameters_WhenNoParametersSupplied" methodname="Invoke_ShouldUseStoredParameters_WhenNoParametersSupplied" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="1129557113" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001157" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1006" name="Invoke_ShouldUseSuppliedParameters_WhenParametersSupplied" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.Invoke_ShouldUseSuppliedParameters_WhenParametersSupplied" methodname="Invoke_ShouldUseSuppliedParameters_WhenParametersSupplied" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="991672384" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000321" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="ResetToDefaults_ShouldRestoreDefaultValues" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.ResetToDefaults_ShouldRestoreDefaultValues" methodname="ResetToDefaults_ShouldRestoreDefaultValues" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="408239137" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000361" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="SetParameter_ShouldHandleInvalidIndex" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.SetParameter_ShouldHandleInvalidIndex" methodname="SetParameter_ShouldHandleInvalidIndex" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="1912404670" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000668" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="SetParameter_ShouldUpdateParameterValue" fullname="DevMenuTool.Tests.EnhancedDevMethodTests.SetParameter_ShouldUpdateParameterValue" methodname="SetParameter_ShouldUpdateParameterValue" classname="DevMenuTool.Tests.EnhancedDevMethodTests" runstate="Runnable" seed="679191204" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000222" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1008" name="ValidationAndEventsTests" fullname="DevMenuTool.Tests.ValidationAndEventsTests" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.019180" total="12" passed="10" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1018" name="AddParameterChangeHandler_ShouldRegisterHandler" fullname="DevMenuTool.Tests.ValidationAndEventsTests.AddParameterChangeHandler_ShouldRegisterHandler" methodname="AddParameterChangeHandler_ShouldRegisterHandler" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="1615518396" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.002339" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1009" name="AddValidator_ShouldAddValidatorToParameter" fullname="DevMenuTool.Tests.ValidationAndEventsTests.AddValidator_ShouldAddValidatorToParameter" methodname="AddValidator_ShouldAddValidatorToParameter" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="930960358" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001365" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="ClearValidators_ShouldRemoveAllValidators" fullname="DevMenuTool.Tests.ValidationAndEventsTests.ClearValidators_ShouldRemoveAllValidators" methodname="ClearValidators_ShouldRemoveAllValidators" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="357047336" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000481" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1020" name="DevMethodFactory_ShouldApplyValidationAttributes" fullname="DevMenuTool.Tests.ValidationAndEventsTests.DevMethodFactory_ShouldApplyValidationAttributes" methodname="DevMethodFactory_ShouldApplyValidationAttributes" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="1855635772" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.002341" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1019" name="RemoveParameterChangeHandler_ShouldUnregisterHandler" fullname="DevMenuTool.Tests.ValidationAndEventsTests.RemoveParameterChangeHandler_ShouldUnregisterHandler" methodname="RemoveParameterChangeHandler_ShouldUnregisterHandler" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="415963665" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000310" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1014" name="RemoveValidator_ShouldRemoveValidator" fullname="DevMenuTool.Tests.ValidationAndEventsTests.RemoveValidator_ShouldRemoveValidator" methodname="RemoveValidator_ShouldRemoveValidator" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="1025080721" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000266" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1017" name="ResetToDefaults_ShouldTriggerMultipleEvents" fullname="DevMenuTool.Tests.ValidationAndEventsTests.ResetToDefaults_ShouldTriggerMultipleEvents" methodname="ResetToDefaults_ShouldTriggerMultipleEvents" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="1359717603" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.005011" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 100
+  But was:  "default"
+]]></message>
+                <stack-trace><![CDATA[at DevMenuTool.Tests.ValidationAndEventsTests.ResetToDefaults_ShouldTriggerMultipleEvents () [0x00062] in D:\GitHubRepos\UnityDevMenuTool\com.routaz.devmenu\Tests\ValidationAndEventsTests.cs:188
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1016" name="SetParameter_ShouldTriggerParameterChangedEvent" fullname="DevMenuTool.Tests.ValidationAndEventsTests.SetParameter_ShouldTriggerParameterChangedEvent" methodname="SetParameter_ShouldTriggerParameterChangedEvent" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="661323105" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000401" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="SetParameter_WithInvalidValue_ShouldFail" fullname="DevMenuTool.Tests.ValidationAndEventsTests.SetParameter_WithInvalidValue_ShouldFail" methodname="SetParameter_WithInvalidValue_ShouldFail" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="900350" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001200" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 100
+  But was:  50
+]]></message>
+                <stack-trace><![CDATA[at DevMenuTool.Tests.ValidationAndEventsTests.SetParameter_WithInvalidValue_ShouldFail () [0x00047] in D:\GitHubRepos\UnityDevMenuTool\com.routaz.devmenu\Tests\ValidationAndEventsTests.cs:119
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Parameter validation failed: Parameter 'amount' must be between 0 and 100 (inclusive). Current value: 150
+]]></output>
+            </test-case>
+            <test-case id="1012" name="SetParameter_WithValidValue_ShouldSucceed" fullname="DevMenuTool.Tests.ValidationAndEventsTests.SetParameter_WithValidValue_ShouldSucceed" methodname="SetParameter_WithValidValue_ShouldSucceed" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="698788863" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000245" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1011" name="ValidateParameter_WithInvalidValue_ShouldReturnFailure" fullname="DevMenuTool.Tests.ValidationAndEventsTests.ValidateParameter_WithInvalidValue_ShouldReturnFailure" methodname="ValidateParameter_WithInvalidValue_ShouldReturnFailure" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="1671096641" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000429" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1010" name="ValidateParameter_WithValidValue_ShouldReturnSuccess" fullname="DevMenuTool.Tests.ValidationAndEventsTests.ValidateParameter_WithValidValue_ShouldReturnSuccess" methodname="ValidateParameter_WithValidValue_ShouldReturnSuccess" classname="DevMenuTool.Tests.ValidationAndEventsTests" runstate="Runnable" seed="2126016925" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000196" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1112" name="DevMenuTool.Tests.dll" fullname="D:/GitHubRepos/UnityDevMenuTool/DevMenuTool/Library/ScriptAssemblies/DevMenuTool.Tests.dll" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.144170" total="76" passed="71" failed="5" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="37772" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1113" name="DevMenuTool" fullname="DevMenuTool" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.140678" total="76" passed="71" failed="5" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1114" name="Tests" fullname="DevMenuTool.Tests" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.138311" total="76" passed="71" failed="5" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1117" name="Core" fullname="DevMenuTool.Tests.Core" runstate="Runnable" testcasecount="20" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.051266" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1062" name="DevMenuContainerTests" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.007393" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1063" name="MethodCache_ShouldReturnMethodCacheInstance" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodCache_ShouldReturnMethodCacheInstance" methodname="MethodCache_ShouldReturnMethodCacheInstance" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1501275818" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000791" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="MethodFactory_ShouldReturnDevMethodFactoryInstance" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodFactory_ShouldReturnDevMethodFactoryInstance" methodname="MethodFactory_ShouldReturnDevMethodFactoryInstance" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1485016610" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000184" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="MethodInvoker_ShouldReturnMethodInvokerInstance" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodInvoker_ShouldReturnMethodInvokerInstance" methodname="MethodInvoker_ShouldReturnMethodInvokerInstance" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1214834031" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000143" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1069" name="MethodInvoker_ShouldUseParameterHandlerRegistry" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodInvoker_ShouldUseParameterHandlerRegistry" methodname="MethodInvoker_ShouldUseParameterHandlerRegistry" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="297563824" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000144" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="MethodScanner_ShouldReturnMethodScannerInstance" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodScanner_ShouldReturnMethodScannerInstance" methodname="MethodScanner_ShouldReturnMethodScannerInstance" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1989371195" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000131" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="MethodScanner_ShouldUseMethodCacheAndFactory" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MethodScanner_ShouldUseMethodCacheAndFactory" methodname="MethodScanner_ShouldUseMethodCacheAndFactory" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="283524355" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000155" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="MultipleCalls_ShouldReturnSameInstances" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.MultipleCalls_ShouldReturnSameInstances" methodname="MultipleCalls_ShouldReturnSameInstances" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1809133832" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000294" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="ParameterHandlerRegistry_ShouldReturnParameterHandlerRegistryInstance" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.ParameterHandlerRegistry_ShouldReturnParameterHandlerRegistryInstance" methodname="ParameterHandlerRegistry_ShouldReturnParameterHandlerRegistryInstance" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="1796399713" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000130" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="Reset_ShouldClearAllInstances" fullname="DevMenuTool.Tests.Core.DevMenuContainerTests.Reset_ShouldClearAllInstances" methodname="Reset_ShouldClearAllInstances" classname="DevMenuTool.Tests.Core.DevMenuContainerTests" runstate="Runnable" seed="170614337" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000245" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1072" name="DevMethodFactoryTests" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.012489" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1078" name="CreateDevMethod_WithMethodWithDefaultParameters_ShouldCreateDevMethodWithDefaults" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithMethodWithDefaultParameters_ShouldCreateDevMethodWithDefaults" methodname="CreateDevMethod_WithMethodWithDefaultParameters_ShouldCreateDevMethodWithDefaults" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="1128232017" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000944" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="CreateDevMethod_WithMethodWithParameters_ShouldCreateDevMethodWithParameters" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithMethodWithParameters_ShouldCreateDevMethodWithParameters" methodname="CreateDevMethod_WithMethodWithParameters_ShouldCreateDevMethodWithParameters" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="807588403" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000548" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="CreateDevMethod_WithNullAttribute_ShouldThrowException" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithNullAttribute_ShouldThrowException" methodname="CreateDevMethod_WithNullAttribute_ShouldThrowException" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="1694114938" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000635" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1074" name="CreateDevMethod_WithNullMethodInfo_ShouldThrowException" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithNullMethodInfo_ShouldThrowException" methodname="CreateDevMethod_WithNullMethodInfo_ShouldThrowException" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="1286177202" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000190" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1075" name="CreateDevMethod_WithNullTargetInstance_ShouldCreateDevMethod" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithNullTargetInstance_ShouldCreateDevMethod" methodname="CreateDevMethod_WithNullTargetInstance_ShouldCreateDevMethod" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="856884915" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000199" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="CreateDevMethod_WithValidParameters_ShouldCreateDevMethod" fullname="DevMenuTool.Tests.Core.DevMethodFactoryTests.CreateDevMethod_WithValidParameters_ShouldCreateDevMethod" methodname="CreateDevMethod_WithValidParameters_ShouldCreateDevMethod" classname="DevMenuTool.Tests.Core.DevMethodFactoryTests" runstate="Runnable" seed="724911828" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000406" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1079" name="MethodCacheTests" fullname="DevMenuTool.Tests.Core.MethodCacheTests" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.007705" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1082" name="AddMethod_WithDuplicateMethod_ShouldNotAddDuplicate" fullname="DevMenuTool.Tests.Core.MethodCacheTests.AddMethod_WithDuplicateMethod_ShouldNotAddDuplicate" methodname="AddMethod_WithDuplicateMethod_ShouldNotAddDuplicate" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" seed="1582883762" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000509" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1081" name="AddMethod_WithNullMethod_ShouldNotAddToCache" fullname="DevMenuTool.Tests.Core.MethodCacheTests.AddMethod_WithNullMethod_ShouldNotAddToCache" methodname="AddMethod_WithNullMethod_ShouldNotAddToCache" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" seed="1683730784" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000146" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1080" name="AddMethod_WithValidMethod_ShouldAddToCache" fullname="DevMenuTool.Tests.Core.MethodCacheTests.AddMethod_WithValidMethod_ShouldAddToCache" methodname="AddMethod_WithValidMethod_ShouldAddToCache" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" seed="1503405619" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000217" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1083" name="Clear_ShouldRemoveAllMethods" fullname="DevMenuTool.Tests.Core.MethodCacheTests.Clear_ShouldRemoveAllMethods" methodname="Clear_ShouldRemoveAllMethods" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" seed="1208444597" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000141" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1084" name="Refresh_ShouldClearCache" fullname="DevMenuTool.Tests.Core.MethodCacheTests.Refresh_ShouldClearCache" methodname="Refresh_ShouldClearCache" classname="DevMenuTool.Tests.Core.MethodCacheTests" runstate="Runnable" seed="2135399725" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000179" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestSuite" id="1116" name="Integration" fullname="DevMenuTool.Tests.Integration" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.031763" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1055" name="DevMenuIntegrationTests" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.013990" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1056" name="CompleteWorkflow_ShouldFindAndInvokeMethods" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_ShouldFindAndInvokeMethods" methodname="CompleteWorkflow_ShouldFindAndInvokeMethods" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="445454802" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.003392" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="CompleteWorkflow_WithDefaultParameters_ShouldUseDefaults" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithDefaultParameters_ShouldUseDefaults" methodname="CompleteWorkflow_WithDefaultParameters_ShouldUseDefaults" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="256208608" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001202" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: 10
+  But was:  42
+]]></message>
+                  <stack-trace><![CDATA[at DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithDefaultParameters_ShouldUseDefaults () [0x00090] in D:\GitHubRepos\UnityDevMenuTool\DevMenuTool\Assets\Tests\Integration\DevMenuIntegrationTests.cs:101
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1061" name="CompleteWorkflow_WithEnumParameter_ShouldHandleEnumCorrectly" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithEnumParameter_ShouldHandleEnumCorrectly" methodname="CompleteWorkflow_WithEnumParameter_ShouldHandleEnumCorrectly" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="1372970739" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001114" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1059" name="CompleteWorkflow_WithMixedParameters_ShouldUseSuppliedAndDefaults" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithMixedParameters_ShouldUseSuppliedAndDefaults" methodname="CompleteWorkflow_WithMixedParameters_ShouldUseSuppliedAndDefaults" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="709462928" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000810" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="CompleteWorkflow_WithMultipleObjects_ShouldFindAllMethods" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithMultipleObjects_ShouldFindAllMethods" methodname="CompleteWorkflow_WithMultipleObjects_ShouldFindAllMethods" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="215165208" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001288" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1057" name="CompleteWorkflow_WithParameters_ShouldInvokeWithCorrectParameters" fullname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests.CompleteWorkflow_WithParameters_ShouldInvokeWithCorrectParameters" methodname="CompleteWorkflow_WithParameters_ShouldInvokeWithCorrectParameters" classname="DevMenuTool.Tests.Integration.DevMenuIntegrationTests" runstate="Runnable" seed="1110369679" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestSuite" id="1115" name="Runtime" fullname="DevMenuTool.Tests.Runtime" runstate="Runnable" testcasecount="50" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.050881" total="50" passed="46" failed="4" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1025" name="MethodInvokerTests" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.008686" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1031" name="Invoke_WithMethodThatThrowsException_ShouldLogError" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodThatThrowsException_ShouldLogError" methodname="Invoke_WithMethodThatThrowsException_ShouldLogError" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="1410796820" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001947" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Error invoking method TestMethodThatThrows: Test exception
+]]></output>
+              </test-case>
+              <test-case id="1028" name="Invoke_WithMethodWithDefaultParameters_ShouldUseDefaults" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithDefaultParameters_ShouldUseDefaults" methodname="Invoke_WithMethodWithDefaultParameters_ShouldUseDefaults" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="605748865" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000950" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithDefaultParameters_ShouldUseDefaults () [0x00019] in D:\GitHubRepos\UnityDevMenuTool\DevMenuTool\Assets\Tests\Runtime\MethodInvokerTests.cs:64
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Error invoking method TestMethodWithDefaults: Number of parameters specified does not match the expected number.
+]]></output>
+              </test-case>
+              <test-case id="1030" name="Invoke_WithMethodWithMixedArgs_ShouldUseSuppliedArgsAndDefaults" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithMixedArgs_ShouldUseSuppliedArgsAndDefaults" methodname="Invoke_WithMethodWithMixedArgs_ShouldUseSuppliedArgsAndDefaults" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="678579059" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000674" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithMixedArgs_ShouldUseSuppliedArgsAndDefaults () [0x0002d] in D:\GitHubRepos\UnityDevMenuTool\DevMenuTool\Assets\Tests\Runtime\MethodInvokerTests.cs:96
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Error invoking method TestMethodWithDefaults: Number of parameters specified does not match the expected number.
+]]></output>
+              </test-case>
+              <test-case id="1026" name="Invoke_WithMethodWithoutParameters_ShouldInvokeMethod" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithoutParameters_ShouldInvokeMethod" methodname="Invoke_WithMethodWithoutParameters_ShouldInvokeMethod" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="1634227506" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000161" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1027" name="Invoke_WithMethodWithParameters_ShouldUseDefaultValues" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithParameters_ShouldUseDefaultValues" methodname="Invoke_WithMethodWithParameters_ShouldUseDefaultValues" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="674361338" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000570" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithParameters_ShouldUseDefaultValues () [0x00019] in D:\GitHubRepos\UnityDevMenuTool\DevMenuTool\Assets\Tests\Runtime\MethodInvokerTests.cs:48
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Error invoking method TestMethodWithParams: Number of parameters specified does not match the expected number.
+]]></output>
+              </test-case>
+              <test-case id="1029" name="Invoke_WithMethodWithSuppliedArgs_ShouldUseSuppliedArgs" fullname="DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithSuppliedArgs_ShouldUseSuppliedArgs" methodname="Invoke_WithMethodWithSuppliedArgs_ShouldUseSuppliedArgs" classname="DevMenuTool.Tests.Runtime.MethodInvokerTests" runstate="Runnable" seed="833276982" result="Failed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000575" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at DevMenuTool.Tests.Runtime.MethodInvokerTests.Invoke_WithMethodWithSuppliedArgs_ShouldUseSuppliedArgs () [0x00032] in D:\GitHubRepos\UnityDevMenuTool\DevMenuTool\Assets\Tests\Runtime\MethodInvokerTests.cs:80
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Error invoking method TestMethodWithParams: Number of parameters specified does not match the expected number.
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1032" name="ParameterHandlerRegistryTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" testcasecount="21" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.013491" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1036" name="GetHandler_WithBoolType_ShouldReturnBooleanHandler" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithBoolType_ShouldReturnBooleanHandler" methodname="GetHandler_WithBoolType_ShouldReturnBooleanHandler" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="57937164" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000260" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="GetHandler_WithEnumType_ShouldReturnEnumHandler" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithEnumType_ShouldReturnEnumHandler" methodname="GetHandler_WithEnumType_ShouldReturnEnumHandler" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1866605660" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000145" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1035" name="GetHandler_WithFloatType_ShouldReturnNumericHandler" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithFloatType_ShouldReturnNumericHandler" methodname="GetHandler_WithFloatType_ShouldReturnNumericHandler" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="403413275" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000141" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="GetHandler_WithIntType_ShouldReturnNumericHandler" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithIntType_ShouldReturnNumericHandler" methodname="GetHandler_WithIntType_ShouldReturnNumericHandler" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1058394875" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000110" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1033" name="GetHandler_WithStringType_ShouldReturnStringHandler" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithStringType_ShouldReturnStringHandler" methodname="GetHandler_WithStringType_ShouldReturnStringHandler" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="486962375" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000106" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1038" name="GetHandler_WithUnsupportedType_ShouldReturnNull" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.GetHandler_WithUnsupportedType_ShouldReturnNull" methodname="GetHandler_WithUnsupportedType_ShouldReturnNull" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="577307336" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000104" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1039" name="IsSupported_WithSupportedType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.IsSupported_WithSupportedType_ShouldReturnTrue" methodname="IsSupported_WithSupportedType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1164942112" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000261" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1040" name="IsSupported_WithUnsupportedType_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.IsSupported_WithUnsupportedType_ShouldReturnFalse" methodname="IsSupported_WithUnsupportedType_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="2010277121" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000119" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="Parse_WithUnsupportedType_ShouldThrowException" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithUnsupportedType_ShouldThrowException" methodname="Parse_WithUnsupportedType_ShouldThrowException" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="708637699" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000229" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="Parse_WithValidBool_ShouldParseCorrectly" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithValidBool_ShouldParseCorrectly" methodname="Parse_WithValidBool_ShouldParseCorrectly" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1040159241" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000501" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="Parse_WithValidEnum_ShouldParseCorrectly" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithValidEnum_ShouldParseCorrectly" methodname="Parse_WithValidEnum_ShouldParseCorrectly" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1818319066" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000149" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1043" name="Parse_WithValidFloat_ShouldParseCorrectly" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithValidFloat_ShouldParseCorrectly" methodname="Parse_WithValidFloat_ShouldParseCorrectly" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="209032381" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.001183" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1042" name="Parse_WithValidInt_ShouldParseCorrectly" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithValidInt_ShouldParseCorrectly" methodname="Parse_WithValidInt_ShouldParseCorrectly" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="854451065" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000139" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1041" name="Parse_WithValidString_ShouldParseCorrectly" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.Parse_WithValidString_ShouldParseCorrectly" methodname="Parse_WithValidString_ShouldParseCorrectly" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="504597966" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000106" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="ToString_WithBoolValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithBoolValue_ShouldReturnString" methodname="ToString_WithBoolValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="2057552848" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000143" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1051" name="ToString_WithEnumValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithEnumValue_ShouldReturnString" methodname="ToString_WithEnumValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="874527440" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000108" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="ToString_WithFloatValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithFloatValue_ShouldReturnString" methodname="ToString_WithFloatValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="650135803" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000126" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1048" name="ToString_WithIntValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithIntValue_ShouldReturnString" methodname="ToString_WithIntValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="295392035" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000099" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="ToString_WithNullValue_ShouldReturnEmptyString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithNullValue_ShouldReturnEmptyString" methodname="ToString_WithNullValue_ShouldReturnEmptyString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="712418522" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1047" name="ToString_WithStringValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithStringValue_ShouldReturnString" methodname="ToString_WithStringValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="1278954300" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1053" name="ToString_WithUnsupportedType_ShouldReturnToString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests.ToString_WithUnsupportedType_ShouldReturnToString" methodname="ToString_WithUnsupportedType_ShouldReturnToString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerRegistryTests" runstate="Runnable" seed="2116010364" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.003395" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1054" name="ParameterHandlerTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests" runstate="Runnable" testcasecount="0" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000062" total="0" passed="0" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+            </test-suite>
+            <test-suite type="TestFixture" id="1099" name="ParameterHandlerTests+BooleanParameterHandlerTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.006564" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1100" name="CanHandle_WithBoolType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.CanHandle_WithBoolType_ShouldReturnTrue" methodname="CanHandle_WithBoolType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="862545968" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1101" name="CanHandle_WithNonBoolType_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.CanHandle_WithNonBoolType_ShouldReturnFalse" methodname="CanHandle_WithNonBoolType_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="1343736081" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000118" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1103" name="Parse_WithFalseString_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.Parse_WithFalseString_ShouldReturnFalse" methodname="Parse_WithFalseString_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="1552866066" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000134" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1105" name="Parse_WithInvalidBoolean_ShouldThrowException" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.Parse_WithInvalidBoolean_ShouldThrowException" methodname="Parse_WithInvalidBoolean_ShouldThrowException" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="174257556" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000340" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1102" name="Parse_WithTrueString_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.Parse_WithTrueString_ShouldReturnTrue" methodname="Parse_WithTrueString_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="777277041" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000134" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1104" name="Parse_WithUpperCaseTrue_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests.Parse_WithUpperCaseTrue_ShouldReturnTrue" methodname="Parse_WithUpperCaseTrue_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+BooleanParameterHandlerTests" runstate="Runnable" seed="1647719254" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000123" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1106" name="ParameterHandlerTests+EnumParameterHandlerTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.006132" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1107" name="CanHandle_WithEnumType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests.CanHandle_WithEnumType_ShouldReturnTrue" methodname="CanHandle_WithEnumType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" seed="929539738" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000250" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1108" name="CanHandle_WithNonEnumType_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests.CanHandle_WithNonEnumType_ShouldReturnFalse" methodname="CanHandle_WithNonEnumType_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" seed="1240953788" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000129" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1111" name="Parse_WithInvalidEnumValue_ShouldThrowException" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests.Parse_WithInvalidEnumValue_ShouldThrowException" methodname="Parse_WithInvalidEnumValue_ShouldThrowException" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" seed="150770039" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000434" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1110" name="Parse_WithLowerCaseEnumValue_ShouldReturnEnum" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests.Parse_WithLowerCaseEnumValue_ShouldReturnEnum" methodname="Parse_WithLowerCaseEnumValue_ShouldReturnEnum" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" seed="1356788663" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000141" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1109" name="Parse_WithValidEnumValue_ShouldReturnEnum" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests.Parse_WithValidEnumValue_ShouldReturnEnum" methodname="Parse_WithValidEnumValue_ShouldReturnEnum" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+EnumParameterHandlerTests" runstate="Runnable" seed="1164220745" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000116" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1091" name="ParameterHandlerTests+NumericParameterHandlerTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.005609" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1093" name="CanHandle_WithFloatType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.CanHandle_WithFloatType_ShouldReturnTrue" methodname="CanHandle_WithFloatType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="1158739352" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000209" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1092" name="CanHandle_WithIntType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.CanHandle_WithIntType_ShouldReturnTrue" methodname="CanHandle_WithIntType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="1670826722" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000142" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1094" name="CanHandle_WithNonNumericType_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.CanHandle_WithNonNumericType_ShouldReturnFalse" methodname="CanHandle_WithNonNumericType_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="552427838" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000125" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1097" name="Parse_WithInvalidNumber_ShouldThrowException" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.Parse_WithInvalidNumber_ShouldThrowException" methodname="Parse_WithInvalidNumber_ShouldThrowException" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="1643580941" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000265" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1098" name="Parse_WithUnsupportedType_ShouldThrowException" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.Parse_WithUnsupportedType_ShouldThrowException" methodname="Parse_WithUnsupportedType_ShouldThrowException" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="2125181599" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000151" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1096" name="Parse_WithValidFloat_ShouldReturnFloat" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.Parse_WithValidFloat_ShouldReturnFloat" methodname="Parse_WithValidFloat_ShouldReturnFloat" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="598762442" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000130" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1095" name="Parse_WithValidInt_ShouldReturnInt" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests.Parse_WithValidInt_ShouldReturnInt" methodname="Parse_WithValidInt_ShouldReturnInt" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+NumericParameterHandlerTests" runstate="Runnable" seed="1867882998" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000108" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1085" name="ParameterHandlerTests+StringParameterHandlerTests" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.005023" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1087" name="CanHandle_WithNonStringType_ShouldReturnFalse" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests.CanHandle_WithNonStringType_ShouldReturnFalse" methodname="CanHandle_WithNonStringType_ShouldReturnFalse" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" seed="413657328" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000233" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1086" name="CanHandle_WithStringType_ShouldReturnTrue" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests.CanHandle_WithStringType_ShouldReturnTrue" methodname="CanHandle_WithStringType_ShouldReturnTrue" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" seed="36094945" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000116" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1088" name="Parse_WithValidString_ShouldReturnSameString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests.Parse_WithValidString_ShouldReturnSameString" methodname="Parse_WithValidString_ShouldReturnSameString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" seed="373306058" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000113" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1090" name="ToString_WithNullValue_ShouldReturnEmptyString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests.ToString_WithNullValue_ShouldReturnEmptyString" methodname="ToString_WithNullValue_ShouldReturnEmptyString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" seed="684965656" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000097" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1089" name="ToString_WithStringValue_ShouldReturnString" fullname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests.ToString_WithStringValue_ShouldReturnString" methodname="ToString_WithStringValue_ShouldReturnString" classname="DevMenuTool.Tests.Runtime.ParameterHandlerTests+StringParameterHandlerTests" runstate="Runnable" seed="1295379609" result="Passed" start-time="2025-08-05 08:29:07Z" end-time="2025-08-05 08:29:07Z" duration="0.000088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/Mikael/AppData/LocalLow/DefaultCompany/DevMenuTool\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

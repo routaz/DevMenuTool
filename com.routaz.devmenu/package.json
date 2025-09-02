@@ -1,0 +1,12 @@
+{
+  "name": "com.routaz.devmenu",
+  "version": "0.1.0",
+  "displayName": "DevMenuTool",
+  "description": "Modular in-game method menu for Unity using attributes, reflection, and UI Toolkit.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Mikael Karlbom"
+  },
+  "keywords": ["debug", "devtools", "menu", "testing"],
+  "type": "tool"
+}
