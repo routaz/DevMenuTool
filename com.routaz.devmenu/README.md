@@ -1,14 +1,6 @@
 # DevMenu Tool - Enhanced Unity Debug Menu System
 
-A powerful, modular in-game debug menu system for Unity that uses attributes, reflection, and UI Toolkit to create developer-friendly debug commands.
-
-## 🚀 Features
-
-### **Enhanced Parameter System** ⭐ **NEW**
-- **Parameter Storage**: Each method stores its own parameter values
-- **Automatic Persistence**: Values persist between Unity sessions via EditorPrefs
-- **Reset Functionality**: "Reset to Defaults" button for each method
-- **Smart Parameter Resolution**: UI updates stored values, hotkeys use stored values
+Modular in-game debug menu system for Unity that uses attributes, reflection, and UI Toolkit to create developer-friendly debug commands.
 
 ### **Core Features**
 - **Attribute-Based**: Simple `[DevMenu]` attribute to mark debug methods
@@ -20,10 +12,9 @@ A powerful, modular in-game debug menu system for Unity that uses attributes, re
 
 ## 📦 Installation
 
-1. **Download the package** from the releases page
-2. **Import into Unity** via Package Manager or Asset Store
-3. **Add the DevMenu component** to any GameObject in your scene
-4. **Start using** with the `[DevMenu]` attribute!
+1. **Import into Unity** via Package Manager
+2. **Add the DevMenu component** to any GameObject in your scene
+3. **Start using** with the `[DevMenu]` attribute!
 
 ## 🎯 Quick Start
 
@@ -35,14 +26,14 @@ using UnityEngine;
 
 public class GameDebugger : MonoBehaviour
 {
-    [DevMenu("Cheats", KeyCode.G)]
+    [DevMenu(KeyCode.G, "Cheats")]
     private void AddGold(int amount = 100)
     {
         Debug.Log($"Added {amount} gold!");
         // This method will appear in the DevMenu with a hotkey
     }
 
-    [DevMenu("Player", KeyCode.H)]
+    [DevMenu(KeyCode.H, "Player")]
     private void SetPlayerHealth(int health = 100, bool invincible = false)
     {
         Debug.Log($"Set health to {health}, invincible: {invincible}");
@@ -56,11 +47,7 @@ public class GameDebugger : MonoBehaviour
 - **Runtime**: Press the configured hotkey or use the UI
 - **Editor**: Go to `DevMenu > Open Dev Menu` in the menu bar
 
-## 🔧 Enhanced Parameter System
-
-The DevMenu tool now features an **enhanced parameter system** that provides better control and persistence:
-
-### **How It Works**
+## Enhanced Parameter System
 
 1. **Parameter Storage**: Each `DevMethod` stores its own parameter values
 2. **Automatic Persistence**: Values are saved to EditorPrefs automatically
@@ -91,12 +78,12 @@ graph TD
 | **UI Button** | Current UI field values | Updates stored parameters, then invokes |
 | **Hotkey** | Stored parameter values | Uses last-saved values, no UI interaction |
 
-## 🎮 Usage Examples
+## Usage Examples
 
 ### **Basic Debug Methods**
 
 ```csharp
-[DevMenu("Debug", KeyCode.F1)]
+[DevMenu(KeyCode.F1, "Debug")]
 private void LogPlayerPosition()
 {
     var player = GameObject.FindGameObjectWithTag("Player");
@@ -104,7 +91,7 @@ private void LogPlayerPosition()
         Debug.Log($"Player position: {player.transform.position}");
 }
 
-[DevMenu("Debug", KeyCode.F2)]
+[DevMenu(KeyCode.F2, "Debug")]
 private void ShowGameStats()
 {
     Debug.Log($"FPS: {1.0f / Time.deltaTime:F1}");
@@ -115,7 +102,7 @@ private void ShowGameStats()
 ### **Parameterized Methods**
 
 ```csharp
-[DevMenu("Cheats", KeyCode.G)]
+[DevMenu(KeyCode.G, "Cheats")]
 private void AddGold(int amount = 100)
 {
     // amount will be stored and remembered
@@ -123,7 +110,7 @@ private void AddGold(int amount = 100)
     Debug.Log($"Added {amount} gold! Total: {PlayerGold}");
 }
 
-[DevMenu("Player", KeyCode.H)]
+[DevMenu(KeyCode.H, "Player")]
 private void SetPlayerStats(int health = 100, float speed = 5.0f, bool invincible = false)
 {
     // All parameters are stored independently
@@ -139,7 +126,7 @@ private void SetPlayerStats(int health = 100, float speed = 5.0f, bool invincibl
 ```csharp
 public enum GameState { Menu, Playing, Paused, GameOver }
 
-[DevMenu("Game", KeyCode.J)]
+[DevMenu(KeyCode.J, "Game")]
 private void SetGameState(GameState state = GameState.Playing)
 {
     currentGameState = state;
@@ -147,7 +134,7 @@ private void SetGameState(GameState state = GameState.Playing)
 }
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 The DevMenu tool follows **SOLID principles** and **Clean Code** practices:
 
@@ -157,15 +144,20 @@ The DevMenu tool follows **SOLID principles** and **Clean Code** practices:
 - **`MethodScanner`**: Discovers methods with `[DevMenu]` attributes
 - **`MethodInvoker`**: Handles method invocation with parameter resolution
 - **`UIBuilder`**: Creates UI elements for method interaction
-- **`DevMenuContainer`**: Simple DI container for service management
+- **`DevMenuContainer`**: Composition root that wires and exposes the shared services
 
 ### **Design Patterns**
 
-- **Factory Pattern**: `DevMethodFactory` creates `DevMethod` instances
+- **Factory Pattern**: `DevMethodFactory` creates `DevMethod` instances and wires their collaborators
 - **Strategy Pattern**: `ParameterHandlerRegistry` handles different parameter types
-- **Dependency Injection**: `DevMenuContainer` manages service instances
+- **Dependency Injection**: collaborators (`IParameterManager`, `IParameterValidatorManager`, `IParameterEventManager`, `IParameterHandlerRegistry`) are passed in through constructors; `DevMenuContainer` is the composition root that wires them together
 
-## 🧪 Testing
+### **SOLID Notes**
+
+- **Interface Segregation**: `IDevMethod` is composed from focused role interfaces (`IDevMethodInfo`, `IDevMethodExecutor`, `IParameterManager`, `IParameterValidatorManager`, `IParameterChangeNotifier`) rather than a single fat interface.
+- **Dependency Inversion**: `DevMethod` depends on collaborator abstractions injected via its constructor instead of `new`-ing concretes, and parameter handling is resolved through the `IParameterHandlerRegistry` abstraction instead of a static lookup.
+
+## Testing
 
 The tool includes comprehensive unit tests:
 
@@ -204,35 +196,26 @@ com.routaz.devmenu/
 └── Tests/                  # Unit tests
     └── EnhancedDevMethodTests.cs
 ```
-
-## 🔄 Migration from Previous Versions
-
-The enhanced parameter system is **fully backward compatible**:
-
-- ✅ Existing code works without changes
-- ✅ Parameter persistence still works
-- ✅ UI behavior is improved but familiar
-- ✅ Hotkey behavior is more predictable
-
-## 🚀 Advanced Features
+## Advanced Features
 
 ### **Custom Parameter Types**
 
-The system supports custom parameter types through the `ParameterHandlerRegistry`:
+Parameter parsing/formatting is handled by `IParameterHandler` strategies. The built-in set
+covers string, numeric, bool, and enum types. To support an additional type, implement
+`IParameterHandler`:
 
 ```csharp
-// Custom parameter handler example
 public class Vector3ParameterHandler : IParameterHandler
 {
     public bool CanHandle(Type parameterType) => parameterType == typeof(Vector3);
-    
+
     public object Parse(string input, Type targetType)
     {
         // Parse "x,y,z" format
         var parts = input.Split(',');
         return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
     }
-    
+
     public string ToString(object value)
     {
         var vector = (Vector3)value;
@@ -241,45 +224,47 @@ public class Vector3ParameterHandler : IParameterHandler
 }
 ```
 
+> **Note:** handlers are currently registered in the `ParameterHandlerRegistry` constructor.
+> Add your handler to that list to enable it — there is no runtime registration API yet.
+
 ### **Parameter Validation**
 
-You can add validation to your parameters:
+Validation is **declarative**: annotate parameters with validation attributes and the
+DevMenu wires them up automatically when the method is discovered. There is no need to
+hand-write guard clauses inside the method body.
 
 ```csharp
-[DevMenu("Cheats", KeyCode.G)]
-private void AddGold(int amount = 100)
+using DevMenuTool.Core.Attributes;
+
+[DevMenu(KeyCode.G, "Cheats")]
+private void AddGold([ParameterRange(0, 9999)] int amount = 100)
 {
-    if (amount < 0)
-    {
-        Debug.LogError("Amount cannot be negative!");
-        return;
-    }
-    
+    // Only reached with a valid amount; no manual checks required.
     PlayerGold += amount;
     Debug.Log($"Added {amount} gold!");
 }
+
+[DevMenu(KeyCode.N, "Player")]
+private void SetPlayerName([StringValidation(minLength: 2, maxLength: 16)] string name = "Hero")
+{
+    playerName = name;
+}
 ```
 
-## 🤝 Contributing
+Built-in attributes:
 
-1. **Fork the repository**
-2. **Create a feature branch**
-3. **Make your changes**
-4. **Add tests for new functionality**
-5. **Submit a pull request**
+| Attribute | Applies to | Purpose |
+|-----------|------------|---------|
+| `[ParameterRange(min, max, inclusive = true)]` | numeric | Value must fall within the range |
+| `[StringValidation(minLength, maxLength, pattern, allowEmpty)]` | string | Length / regex / emptiness rules |
+| `[Required]` | string | Value must be non-null and non-empty |
+
+When an entered value fails validation the edit is **rejected** and the last valid value is
+kept — the parameter is never silently overwritten with the default. Add your own rule by
+implementing `IParameterValidator` and a matching `ParameterValidationAttribute`.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
-
-- **Unity UI Toolkit** for modern UI components
-- **NUnit** for comprehensive testing framework
-- **SOLID Principles** for clean architecture guidance
-
----
-
 **Made with ❤️ for Unity developers**
-
-For more information about the enhanced parameter system, see [ENHANCED_PARAMETER_SYSTEM.md](ENHANCED_PARAMETER_SYSTEM.md). 

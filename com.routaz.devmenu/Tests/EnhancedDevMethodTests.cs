@@ -24,7 +24,7 @@ namespace DevMenuTool.Tests
             _testInstance = new TestClass();
             var methodInfo = typeof(TestClass).GetMethod("TestMethod");
             var attribute = new DevMenuAttribute(KeyCode.G, "Test Group");
-            _devMethod = new DevMethod(methodInfo, _testInstance, attribute);
+            _devMethod = new DevMethodFactory().CreateDevMethod(methodInfo, _testInstance, attribute);
             
             // Enable test mode to isolate test data from development data
             #if UNITY_EDITOR

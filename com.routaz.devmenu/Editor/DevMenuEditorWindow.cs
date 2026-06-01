@@ -27,7 +27,7 @@ namespace DevMenuTool.Editor
             // Initialize dependencies when the window is enabled.
             // This is a better place than CreateGUI for setting up instances.
             _methodScanner = DevMenuContainer.MethodScanner;
-            _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker);
+            _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker, DevMenuContainer.ParameterHandlerRegistry);
         }
 
         public void CreateGUI()

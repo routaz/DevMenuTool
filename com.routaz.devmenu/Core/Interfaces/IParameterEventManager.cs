@@ -1,15 +1,10 @@
-using System;
-
 namespace DevMenuTool.Core.Interfaces
 {
     /// <summary>
-    /// Manages parameter change events and handlers for a DevMethod.
+    /// Manages parameter change events and handlers, and raises them on behalf of a DevMethod.
     /// </summary>
-    public interface IParameterEventManager
+    public interface IParameterEventManager : IParameterChangeNotifier
     {
-        event EventHandler<ParameterChangeEventArgs> ParameterChanged;
-        void AddParameterChangeHandler(IParameterChangeHandler handler);
-        void RemoveParameterChangeHandler(IParameterChangeHandler handler);
-        void OnParameterChanged(int parameterIndex, object oldValue, object newValue);
+        void OnParameterChanged(object sender, int parameterIndex, object oldValue, object newValue);
     }
-} 
+}

@@ -15,7 +15,7 @@ namespace DevMenuTool.UI
         private void Start()
         {
             _methodScanner = DevMenuContainer.MethodScanner;
-            _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker);
+            _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker, DevMenuContainer.ParameterHandlerRegistry);
 
             if (!TryGetScrollView(out var scrollView))
             {

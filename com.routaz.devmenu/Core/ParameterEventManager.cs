@@ -11,12 +11,14 @@ namespace DevMenuTool.Core
     /// </summary>
     public class ParameterEventManager : IParameterEventManager
     {
-        private readonly IDevMethod _devMethod;
+        private readonly ParameterInfo[] _parameters;
+        private readonly string _methodName;
         private readonly List<IParameterChangeHandler> _changeHandlers = new();
 
-        public ParameterEventManager(IDevMethod devMethod)
+        public ParameterEventManager(ParameterInfo[] parameters, string methodName)
         {
-            _devMethod = devMethod ?? throw new ArgumentNullException(nameof(devMethod));
+            _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
+            _methodName = methodName;
         }
 
         public event EventHandler<ParameterChangeEventArgs> ParameterChanged;
@@ -33,21 +35,21 @@ namespace DevMenuTool.Core
                 _changeHandlers.Remove(handler);
         }
 
-        public void OnParameterChanged(int parameterIndex, object oldValue, object newValue)
+        public void OnParameterChanged(object sender, int parameterIndex, object oldValue, object newValue)
         {
-            var parameterName = _devMethod.Parameters[parameterIndex].Name;
-            var parameterType = _devMethod.Parameters[parameterIndex].ParameterType;
-            var eventArgs = new ParameterChangeEventArgs(_devMethod.MethodInfo.Name, parameterName, oldValue, newValue, parameterType);
+            var parameterName = _parameters[parameterIndex].Name;
+            var parameterType = _parameters[parameterIndex].ParameterType;
+            var eventArgs = new ParameterChangeEventArgs(_methodName, parameterName, oldValue, newValue, parameterType);
 
             // Trigger the event
-            ParameterChanged?.Invoke(_devMethod, eventArgs);
+            ParameterChanged?.Invoke(sender, eventArgs);
 
             // Notify all change handlers
             foreach (var handler in _changeHandlers)
             {
                 try
                 {
-                    handler.OnParameterChanged(_devMethod, eventArgs);
+                    handler.OnParameterChanged(sender, eventArgs);
                 }
                 catch (Exception ex)
                 {

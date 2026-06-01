@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DevMenuTool.Core.Interfaces;
 using DevMenuTool.Runtime;
+using DevMenuTool.Runtime.Interfaces;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,10 +17,12 @@ namespace DevMenuTool.UI
     public class UIBuilder
     {
         private readonly IMethodInvoker _invoker;
+        private readonly IParameterHandlerRegistry _registry;
 
-        public UIBuilder(IMethodInvoker invoker)
+        public UIBuilder(IMethodInvoker invoker, IParameterHandlerRegistry registry)
         {
             _invoker = invoker;
+            _registry = registry;
         }
 
         public VisualElement BuildMethodUI(IDevMethod method)
@@ -108,55 +111,28 @@ namespace DevMenuTool.UI
 
             field.tooltip = tooltip;
 
-            // Register value change callbacks for all field types to save to method's stored parameters
+            // Single persistence path: the stored parameter (ParameterManager) is authoritative in
+            // play mode; in edit mode we seed EditorPrefs directly using the same registry format so
+            // the value round-trips correctly when play mode starts.
+            void Persist(object newValue)
+            {
+                method.SetParameter(parameterIndex, newValue);
+                #if UNITY_EDITOR
+                if (!Application.isPlaying)
+                {
+                    var stringValue = _registry.ToString(newValue);
+                    DevMenuParameterPrefs.SetValue(methodSignature, param.Name, stringValue);
+                }
+                #endif
+            }
+
             switch (field)
             {
-                case INotifyValueChanged<string> f: 
-                    f.RegisterValueChangedCallback(evt => 
-                    {
-                        #if UNITY_EDITOR
-                        DevMenuParameterPrefs.SetValue(methodSignature, param.Name, evt.newValue);
-                        #endif
-                        // Save to method's stored parameters for runtime shortcut key support
-                        method.SetParameter(parameterIndex, evt.newValue);
-                    }); 
-                    break;
-                case INotifyValueChanged<int> f: 
-                    f.RegisterValueChangedCallback(evt => 
-                    {
-                        #if UNITY_EDITOR
-                        DevMenuParameterPrefs.SetValue(methodSignature, param.Name, evt.newValue);
-                        #endif
-                        method.SetParameter(parameterIndex, evt.newValue);
-                    }); 
-                    break;
-                case INotifyValueChanged<float> f: 
-                    f.RegisterValueChangedCallback(evt => 
-                    {
-                        #if UNITY_EDITOR
-                        DevMenuParameterPrefs.SetValue(methodSignature, param.Name, evt.newValue);
-                        #endif
-                        method.SetParameter(parameterIndex, evt.newValue);
-                    }); 
-                    break;
-                case INotifyValueChanged<bool> f: 
-                    f.RegisterValueChangedCallback(evt => 
-                    {
-                        #if UNITY_EDITOR
-                        DevMenuParameterPrefs.SetValue(methodSignature, param.Name, evt.newValue);
-                        #endif
-                        method.SetParameter(parameterIndex, evt.newValue);
-                    }); 
-                    break;
-                case INotifyValueChanged<System.Enum> f: 
-                    f.RegisterValueChangedCallback(evt => 
-                    {
-                        #if UNITY_EDITOR
-                        DevMenuParameterPrefs.SetValue(methodSignature, param.Name, evt.newValue);
-                        #endif
-                        method.SetParameter(parameterIndex, evt.newValue);
-                    }); 
-                    break;
+                case INotifyValueChanged<string> f: f.RegisterValueChangedCallback(evt => Persist(evt.newValue)); break;
+                case INotifyValueChanged<int> f: f.RegisterValueChangedCallback(evt => Persist(evt.newValue)); break;
+                case INotifyValueChanged<float> f: f.RegisterValueChangedCallback(evt => Persist(evt.newValue)); break;
+                case INotifyValueChanged<bool> f: f.RegisterValueChangedCallback(evt => Persist(evt.newValue)); break;
+                case INotifyValueChanged<System.Enum> f: f.RegisterValueChangedCallback(evt => Persist(evt.newValue)); break;
             }
 
             return field;
@@ -266,7 +242,7 @@ namespace DevMenuTool.UI
                     case Toggle f: value = f.value; break;
                     case EnumField f: value = f.value; break;
                     case TextField f when !string.IsNullOrWhiteSpace(f.value):
-                        try { value = DevMenuContainer.ParameterHandlerRegistry.Parse(f.value, paramInfo.ParameterType); } catch { value = null; }
+                        try { value = _registry.Parse(f.value, paramInfo.ParameterType); } catch { value = null; }
                         break;
                 }
                 args[i] = value;

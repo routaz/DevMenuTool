@@ -10,13 +10,13 @@ namespace DevMenuTool.Core
         private static IDevMethodFactory _methodFactory;
         private static IMethodScanner _methodScanner;
         private static IMethodInvoker _methodInvoker;
-        private static ParameterHandlerRegistry _parameterHandlerRegistry;
+        private static IParameterHandlerRegistry _parameterHandlerRegistry;
 
         public static IMethodCache MethodCache => _methodCache ??= new MethodCache();
-        public static IDevMethodFactory MethodFactory => _methodFactory ??= new DevMethodFactory();
+        public static IDevMethodFactory MethodFactory => _methodFactory ??= new DevMethodFactory(ParameterHandlerRegistry);
         public static IMethodScanner MethodScanner => _methodScanner ??= new MethodScanner(MethodCache, MethodFactory);
         public static IMethodInvoker MethodInvoker => _methodInvoker ??= new MethodInvoker();
-        public static ParameterHandlerRegistry ParameterHandlerRegistry => _parameterHandlerRegistry ??= new ParameterHandlerRegistry();
+        public static IParameterHandlerRegistry ParameterHandlerRegistry => _parameterHandlerRegistry ??= new ParameterHandlerRegistry();
 
         public static void Reset()
         {

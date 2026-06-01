@@ -6,7 +6,7 @@ namespace DevMenuTool.Runtime
     {
         private const string RuntimeObjectName = "__DevMenuHotkeyListener";
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void OnPlayModeStart()
         {
             Debug.Log("✅ DevMenuPlayModeInjector initialized.");

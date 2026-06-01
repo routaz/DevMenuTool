@@ -23,20 +23,39 @@ namespace DevMenuTool.Core
 
         // Delegated responsibilities
         private readonly IParameterManager _parameterManager;
-        private readonly IParameterValidator _parameterValidator;
+        private readonly IParameterValidatorManager _parameterValidator;
         private readonly IParameterEventManager _eventManager;
 
-        public DevMethod(MethodInfo methodInfo, object targetInstance, DevMenuAttribute attribute)
+        public DevMethod(
+            MethodInfo methodInfo,
+            object targetInstance,
+            DevMenuAttribute attribute,
+            IParameterManager parameterManager,
+            IParameterValidatorManager parameterValidator,
+            IParameterEventManager eventManager)
         {
             MethodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
-            TargetInstance = targetInstance ?? throw new ArgumentNullException(nameof(targetInstance));
+            TargetInstance = targetInstance;
             GroupName = attribute?.GroupName ?? string.Empty;
             ShortcutKey = attribute?.ShortcutKey ?? KeyCode.None;
-            
-            // Initialize delegated components
-            _parameterManager = new ParameterManager(this);
-            _parameterValidator = new ParameterValidator(this);
-            _eventManager = new ParameterEventManager(this);
+
+            _parameterManager = parameterManager ?? throw new ArgumentNullException(nameof(parameterManager));
+            _parameterValidator = parameterValidator ?? throw new ArgumentNullException(nameof(parameterValidator));
+            _eventManager = eventManager ?? throw new ArgumentNullException(nameof(eventManager));
+
+            RegisterDeclaredValidators();
+        }
+
+        private void RegisterDeclaredValidators()
+        {
+            var parameters = Parameters;
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                foreach (var attribute in parameters[i].GetCustomAttributes<ParameterValidationAttribute>(false))
+                {
+                    _parameterValidator.AddValidator(i, attribute.CreateValidator());
+                }
+            }
         }
 
         // Parameter management delegation
@@ -48,22 +67,19 @@ namespace DevMenuTool.Core
             var validationResult = _parameterValidator.ValidateParameter(index, value);
             if (!validationResult.IsValid)
             {
+                // Reject the change and keep the last valid value untouched.
                 Debug.LogWarning($"Parameter validation failed: {validationResult.ErrorMessage}");
-                // When validation fails, set to default value instead of keeping current value
-                var paramInfo = Parameters[index];
-                value = paramInfo.HasDefaultValue 
-                    ? paramInfo.DefaultValue 
-                    : (paramInfo.ParameterType.IsValueType ? Activator.CreateInstance(paramInfo.ParameterType) : null);
+                return;
             }
 
             // Get old value for change event
             var oldValue = _parameterManager.GetCurrentParameters()[index];
-            
+
             // Update the parameter
             _parameterManager.SetParameter(index, value);
-            
+
             // Trigger change event
-            _eventManager.OnParameterChanged(index, oldValue, value);
+            _eventManager.OnParameterChanged(this, index, oldValue, value);
         }
         
         public void ResetToDefaults()
@@ -75,7 +91,7 @@ namespace DevMenuTool.Core
             var newParameters = _parameterManager.GetCurrentParameters();
             for (int i = 0; i < Parameters.Length; i++)
             {
-                _eventManager.OnParameterChanged(i, oldParameters[i], newParameters[i]);
+                _eventManager.OnParameterChanged(this, i, oldParameters[i], newParameters[i]);
             }
         }
         

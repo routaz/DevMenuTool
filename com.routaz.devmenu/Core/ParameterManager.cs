@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using DevMenuTool.Core.Interfaces;
+using DevMenuTool.Runtime.Interfaces;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -14,28 +15,32 @@ namespace DevMenuTool.Core
     /// </summary>
     public class ParameterManager : IParameterManager
     {
-        private readonly IDevMethod _devMethod;
+        private readonly ParameterInfo[] _parameters;
+        private readonly string _methodKey;
+        private readonly IParameterHandlerRegistry _registry;
         private object[] _currentParameters;
         private bool _parametersInitialized = false;
 
-        public ParameterManager(IDevMethod devMethod)
+        public ParameterManager(ParameterInfo[] parameters, string methodKey, IParameterHandlerRegistry registry)
         {
-            _devMethod = devMethod ?? throw new ArgumentNullException(nameof(devMethod));
-            _currentParameters = new object[_devMethod.Parameters.Length];
+            _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
+            _methodKey = methodKey;
+            _registry = registry ?? throw new ArgumentNullException(nameof(registry));
+            _currentParameters = new object[_parameters.Length];
             InitializeParameters();
         }
 
         private void InitializeParameters()
         {
             if (_parametersInitialized) return;
-            
+
             // Try to load from EditorPrefs first
             if (LoadFromEditorPrefs())
             {
                 _parametersInitialized = true;
                 return;
             }
-            
+
             // Fall back to default values
             ResetToDefaults();
             _parametersInitialized = true;
@@ -52,25 +57,19 @@ namespace DevMenuTool.Core
             if (index < 0 || index >= _currentParameters.Length)
                 return;
 
-            // Store old value for change event
-            var oldValue = _currentParameters[index];
-            
-            // Update the parameter
             _currentParameters[index] = value;
-            
-            // Save to EditorPrefs
             SaveToEditorPrefs();
         }
 
         public void ResetToDefaults()
         {
-            for (int i = 0; i < _devMethod.Parameters.Length; i++)
+            for (int i = 0; i < _parameters.Length; i++)
             {
-                var paramInfo = _devMethod.Parameters[i];
-                var newValue = paramInfo.HasDefaultValue 
-                    ? paramInfo.DefaultValue 
+                var paramInfo = _parameters[i];
+                var newValue = paramInfo.HasDefaultValue
+                    ? paramInfo.DefaultValue
                     : (paramInfo.ParameterType.IsValueType ? Activator.CreateInstance(paramInfo.ParameterType) : null);
-                
+
                 _currentParameters[i] = newValue;
             }
             SaveToEditorPrefs();
@@ -80,14 +79,13 @@ namespace DevMenuTool.Core
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying) return;
-            
-            var methodKey = _devMethod.MethodInfo.ToString();
-            for (int i = 0; i < _devMethod.Parameters.Length; i++)
+
+            for (int i = 0; i < _parameters.Length; i++)
             {
-                var paramName = _devMethod.Parameters[i].Name;
+                var paramName = _parameters[i].Name;
                 var value = _currentParameters[i];
-                var stringValue = DevMenuContainer.ParameterHandlerRegistry.ToString(value);
-                DevMenuParameterPrefs.SetValue(methodKey, paramName, stringValue);
+                var stringValue = _registry.ToString(value);
+                DevMenuParameterPrefs.SetValue(_methodKey, paramName, stringValue);
             }
 #endif
         }
@@ -96,21 +94,20 @@ namespace DevMenuTool.Core
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying) return false;
-            
-            var methodKey = _devMethod.MethodInfo.ToString();
+
             var allLoaded = true;
-            
-            for (int i = 0; i < _devMethod.Parameters.Length; i++)
+
+            for (int i = 0; i < _parameters.Length; i++)
             {
-                var paramName = _devMethod.Parameters[i].Name;
-                var savedValue = DevMenuParameterPrefs.GetValue(methodKey, paramName);
-                
+                var paramName = _parameters[i].Name;
+                var savedValue = DevMenuParameterPrefs.GetValue(_methodKey, paramName);
+
                 if (!string.IsNullOrEmpty(savedValue))
                 {
                     try
                     {
-                        _currentParameters[i] = DevMenuContainer.ParameterHandlerRegistry.Parse(
-                            savedValue, _devMethod.Parameters[i].ParameterType);
+                        _currentParameters[i] = _registry.Parse(
+                            savedValue, _parameters[i].ParameterType);
                     }
                     catch
                     {
@@ -122,11 +119,11 @@ namespace DevMenuTool.Core
                     allLoaded = false;
                 }
             }
-            
+
             return allLoaded;
 #else
             return false;
 #endif
         }
     }
-} 
+}

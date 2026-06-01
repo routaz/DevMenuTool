@@ -9,19 +9,19 @@ namespace DevMenuTool.Core
     /// <summary>
     /// Manages parameter validation for a DevMethod.
     /// </summary>
-    public class ParameterValidator : IParameterValidator
+    public class ParameterValidator : IParameterValidatorManager
     {
-        private readonly IDevMethod _devMethod;
+        private readonly ParameterInfo[] _parameters;
         private readonly Dictionary<int, List<IParameterValidator>> _validators = new();
 
-        public ParameterValidator(IDevMethod devMethod)
+        public ParameterValidator(ParameterInfo[] parameters)
         {
-            _devMethod = devMethod ?? throw new ArgumentNullException(nameof(devMethod));
+            _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
         }
 
         public void AddValidator(int parameterIndex, IParameterValidator validator)
         {
-            if (parameterIndex < 0 || parameterIndex >= _devMethod.Parameters.Length || validator == null)
+            if (parameterIndex < 0 || parameterIndex >= _parameters.Length || validator == null)
                 return;
 
             if (!_validators.ContainsKey(parameterIndex))
@@ -32,7 +32,7 @@ namespace DevMenuTool.Core
 
         public void RemoveValidator(int parameterIndex, IParameterValidator validator)
         {
-            if (parameterIndex < 0 || parameterIndex >= _devMethod.Parameters.Length || validator == null)
+            if (parameterIndex < 0 || parameterIndex >= _parameters.Length || validator == null)
                 return;
 
             if (_validators.ContainsKey(parameterIndex))
@@ -41,7 +41,7 @@ namespace DevMenuTool.Core
 
         public void ClearValidators(int parameterIndex)
         {
-            if (parameterIndex < 0 || parameterIndex >= _devMethod.Parameters.Length)
+            if (parameterIndex < 0 || parameterIndex >= _parameters.Length)
                 return;
 
             _validators.Remove(parameterIndex);
@@ -49,11 +49,11 @@ namespace DevMenuTool.Core
 
         public ParameterValidationResult ValidateParameter(int parameterIndex, object value)
         {
-            if (parameterIndex < 0 || parameterIndex >= _devMethod.Parameters.Length)
+            if (parameterIndex < 0 || parameterIndex >= _parameters.Length)
                 return ParameterValidationResult.Failure("Invalid parameter index");
 
-            var parameterType = _devMethod.Parameters[parameterIndex].ParameterType;
-            var parameterName = _devMethod.Parameters[parameterIndex].Name;
+            var parameterType = _parameters[parameterIndex].ParameterType;
+            var parameterName = _parameters[parameterIndex].Name;
 
             // Check if we have validators for this parameter
             if (_validators.ContainsKey(parameterIndex))
@@ -66,13 +66,6 @@ namespace DevMenuTool.Core
                 }
             }
 
-            return ParameterValidationResult.Success();
-        }
-
-        public ParameterValidationResult Validate(string parameterName, object value, Type parameterType)
-        {
-            // This is the interface implementation for IParameterValidator
-            // For the ParameterValidator class, we delegate to the specific parameter validation
             return ParameterValidationResult.Success();
         }
     }

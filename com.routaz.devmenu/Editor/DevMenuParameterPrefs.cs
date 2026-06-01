@@ -54,7 +54,7 @@ namespace DevMenuTool.Editor
         private static void SaveKeysRegistry()
         {
             var registryKey = _isTestMode ? TestKeysRegistryKey : KeysRegistryKey;
-            var keysJson = JsonUtility.ToJson(new { keys = _savedKeys.ToArray() });
+            var keysJson = JsonUtility.ToJson(new KeysData { keys = _savedKeys.ToArray() });
             EditorPrefs.SetString(registryKey, keysJson);
         }
 
@@ -68,9 +68,12 @@ namespace DevMenuTool.Editor
                 {
                     var data = JsonUtility.FromJson<KeysData>(keysJson);
                     _savedKeys.Clear();
-                    foreach (var key in data.keys)
+                    if (data?.keys != null)
                     {
-                        _savedKeys.Add(key);
+                        foreach (var key in data.keys)
+                        {
+                            _savedKeys.Add(key);
+                        }
                     }
                 }
                 catch

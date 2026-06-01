@@ -6,7 +6,7 @@ using DevMenuTool.Runtime.Handlers;
 
 namespace DevMenuTool.Runtime
 {
-    public class ParameterHandlerRegistry
+    public class ParameterHandlerRegistry : IParameterHandlerRegistry
     {
         private readonly List<IParameterHandler> _handlers;
 
