@@ -54,8 +54,7 @@ namespace DevMenuTool.Core
 
             var parameterType = _parameters[parameterIndex].ParameterType;
             var parameterName = _parameters[parameterIndex].Name;
-
-            // Check if we have validators for this parameter
+            
             if (_validators.ContainsKey(parameterIndex))
             {
                 foreach (var validator in _validators[parameterIndex])

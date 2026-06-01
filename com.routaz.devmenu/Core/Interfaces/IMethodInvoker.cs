@@ -1,7 +1,4 @@
-﻿// IMethodInvoker.cs
-using DevMenuTool.Core.Interfaces;
-
-namespace DevMenuTool.Core.Interfaces
+﻿namespace DevMenuTool.Core.Interfaces
 {
     public interface IMethodInvoker
     {

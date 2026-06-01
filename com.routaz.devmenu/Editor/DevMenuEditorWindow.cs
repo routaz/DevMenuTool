@@ -24,15 +24,12 @@ namespace DevMenuTool.Editor
 
         private void OnEnable()
         {
-            // Initialize dependencies when the window is enabled.
-            // This is a better place than CreateGUI for setting up instances.
             _methodScanner = DevMenuContainer.MethodScanner;
             _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker, DevMenuContainer.ParameterHandlerRegistry);
         }
 
         public void CreateGUI()
         {
-            // The CreateGUI method is now a clean entry point.
             BuildWindowUI();
         }
 
@@ -50,17 +47,17 @@ namespace DevMenuTool.Editor
 
         private void LoadStyles(VisualElement root)
         {
-            var styleSheet = Resources.Load<StyleSheet>("DevMenu"); //
+            var styleSheet = Resources.Load<StyleSheet>("DevMenu");
             if (styleSheet != null)
-                root.styleSheets.Add(styleSheet); //
+                root.styleSheets.Add(styleSheet);
         }
 
         private ScrollView CreateScrollView(VisualElement root)
         {
-            var scrollView = new ScrollView(); //
-            scrollView.name = "method-scroll"; //
-            scrollView.AddToClassList("scroll-container"); //
-            root.Add(scrollView); //
+            var scrollView = new ScrollView();
+            scrollView.name = "method-scroll";
+            scrollView.AddToClassList("scroll-container");
+            root.Add(scrollView);
             return scrollView;
         }
 
@@ -81,23 +78,22 @@ namespace DevMenuTool.Editor
 
         private VisualElement CreateGroupContainer(ScrollView scrollView)
         {
-            var groupContainer = new VisualElement(); //
-            groupContainer.AddToClassList("group-container"); //
-            scrollView.Add(groupContainer); //
+            var groupContainer = new VisualElement();
+            groupContainer.AddToClassList("group-container");
+            scrollView.Add(groupContainer);
             return groupContainer;
         }
 
         private void BuildMethodGroupUI(VisualElement container, IGrouping<string, IDevMethod> group)
         {
-            var header = new Label(group.Key); //
-            header.AddToClassList("group-header"); //
-            container.Add(header); //
+            var header = new Label(group.Key);
+            header.AddToClassList("group-header");
+            container.Add(header);
 
             foreach (var method in group)
             {
-                // Use the UIBuilder instance to create the UI for each method.
                 var methodUI = _uiBuilder.BuildMethodUI(method);
-                container.Add(methodUI); //
+                container.Add(methodUI);
             }
         }
     }

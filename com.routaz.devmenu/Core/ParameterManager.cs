@@ -33,15 +33,13 @@ namespace DevMenuTool.Core
         private void InitializeParameters()
         {
             if (_parametersInitialized) return;
-
-            // Try to load from EditorPrefs first
+            
             if (LoadFromEditorPrefs())
             {
                 _parametersInitialized = true;
                 return;
             }
-
-            // Fall back to default values
+            
             ResetToDefaults();
             _parametersInitialized = true;
         }

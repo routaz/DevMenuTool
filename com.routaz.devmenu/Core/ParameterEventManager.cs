@@ -40,11 +40,9 @@ namespace DevMenuTool.Core
             var parameterName = _parameters[parameterIndex].Name;
             var parameterType = _parameters[parameterIndex].ParameterType;
             var eventArgs = new ParameterChangeEventArgs(_methodName, parameterName, oldValue, newValue, parameterType);
-
-            // Trigger the event
+            
             ParameterChanged?.Invoke(sender, eventArgs);
-
-            // Notify all change handlers
+            
             foreach (var handler in _changeHandlers)
             {
                 try

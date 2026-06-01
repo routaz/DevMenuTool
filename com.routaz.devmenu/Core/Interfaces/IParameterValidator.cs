@@ -16,16 +16,13 @@ namespace DevMenuTool.Core.Interfaces
         /// <returns>Validation result with success status and error message</returns>
         ParameterValidationResult Validate(string parameterName, object value, Type parameterType);
     }
-
-    /// <summary>
-    /// Result of parameter validation.
-    /// </summary>
+    
     public struct ParameterValidationResult
     {
         public bool IsValid { get; }
         public string ErrorMessage { get; }
 
-        public ParameterValidationResult(bool isValid, string errorMessage = null)
+        private ParameterValidationResult(bool isValid, string errorMessage = null)
         {
             IsValid = isValid;
             ErrorMessage = errorMessage;

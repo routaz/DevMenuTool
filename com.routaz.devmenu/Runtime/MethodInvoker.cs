@@ -11,7 +11,6 @@ namespace DevMenuTool.Runtime
         {
             try
             {
-                // If suppliedArgs is provided (from UI), update the method's stored parameters
                 if (suppliedArgs != null)
                 {
                     for (int i = 0; i < suppliedArgs.Length && i < method.Parameters.Length; i++)
@@ -20,7 +19,6 @@ namespace DevMenuTool.Runtime
                     }
                 }
                 
-                // Invoke with current parameters (either updated from UI or existing stored values)
                 method.Invoke();
             }
             catch (Exception ex)

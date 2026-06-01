@@ -15,12 +15,6 @@ namespace DevMenuTool.Runtime
 
             if (existingObject != null)
             {
-                /*
-                Debug.LogWarning($"Found an object named {RuntimeObjectName}. It's preventing a new one from being created.");
-                Debug.Log($"Object found: {existingObject.name}");
-                Debug.Log($"Active in hierarchy: {existingObject.activeInHierarchy}");
-                Debug.Log($"Object has DevMenuHotkeyListener component: {existingObject.GetComponent<DevMenuHotkeyListener>() != null}");
-                */
                 Object.DestroyImmediate(existingObject);
             }
 

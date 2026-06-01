@@ -23,8 +23,7 @@ namespace DevMenuTool.Core.Validators
         {
             if (value == null)
                 return ParameterValidationResult.Success();
-
-            // Only validate numeric types
+            
             if (!IsNumericType(parameterType))
                 return ParameterValidationResult.Success();
 

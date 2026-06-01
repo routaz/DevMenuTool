@@ -14,8 +14,7 @@ namespace DevMenuTool.Runtime
     {
         private IMethodInvoker _methodInvoker;
         private IMethodScanner _methodScanner;
-
-        // Resolved key per method signature, cached so we don't read EditorPrefs every frame.
+        
         private readonly Dictionary<string, KeyCode> _keyCache = new();
 
         private void Awake()
@@ -38,15 +37,12 @@ namespace DevMenuTool.Runtime
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // A new scene brings new MonoBehaviours, so force a fresh scan.
             _methodScanner.ScanScene();
             RebuildKeyCache();
         }
 
         private void EnsureScanned()
         {
-            // The scanner cache is shared (e.g. with the runtime UI). Only scan if no one has yet,
-            // so the listener and UI operate on the same DevMethod instances.
             if (_methodScanner.CachedMethods.Count == 0)
                 _methodScanner.ScanScene();
         }

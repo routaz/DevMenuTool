@@ -34,8 +34,7 @@ namespace DevMenuTool.UI
             }
 
             var body = root.Q<VisualElement>("method-body");
-
-            // Pass the specific method to the helper functions
+            
             SetupHeader(root, method);
             var parameterFields = CreateParameterFields(body, method);
             SetupInvokeButton(body, method, parameterFields);
@@ -110,10 +109,7 @@ namespace DevMenuTool.UI
             };
 
             field.tooltip = tooltip;
-
-            // Single persistence path: the stored parameter (ParameterManager) is authoritative in
-            // play mode; in edit mode we seed EditorPrefs directly using the same registry format so
-            // the value round-trips correctly when play mode starts.
+            
             void Persist(object newValue)
             {
                 method.SetParameter(parameterIndex, newValue);
@@ -146,8 +142,6 @@ namespace DevMenuTool.UI
             {
                 button.clicked += () =>
                 {
-                    // Now the lambda captures the 'method' and 'parameterFields' variables
-                    // passed into this specific call, which are correct for this button.
                     var args = GetArgumentsFromFields(parameterFields);
                     _invoker.Invoke(method, args);
                 };
@@ -196,10 +190,8 @@ namespace DevMenuTool.UI
 
             resetButton.clicked += () =>
             {
-                // Reset the method's parameters to defaults
                 method.ResetToDefaults();
                 
-                // Refresh the UI fields with the new default values
                 RefreshParameterFields(method, parameterFields);
             };
 
@@ -228,7 +220,6 @@ namespace DevMenuTool.UI
 
         private object[] GetArgumentsFromFields(List<(VisualElement field, ParameterInfo info)> parameterFields)
         {
-            // This method now operates on the list of fields passed to it.
             var args = new object[parameterFields.Count];
             for (int i = 0; i < parameterFields.Count; i++)
             {

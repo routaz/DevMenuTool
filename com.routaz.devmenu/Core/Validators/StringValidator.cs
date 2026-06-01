@@ -28,8 +28,7 @@ namespace DevMenuTool.Core.Validators
                 return ParameterValidationResult.Success();
 
             var stringValue = value as string;
-
-            // Handle null/empty values
+            
             if (string.IsNullOrEmpty(stringValue))
             {
                 if (!_allowEmpty)
@@ -38,22 +37,19 @@ namespace DevMenuTool.Core.Validators
                 }
                 return ParameterValidationResult.Success();
             }
-
-            // Check minimum length
+            
             if (_minLength.HasValue && stringValue.Length < _minLength.Value)
             {
                 return ParameterValidationResult.Failure(
                     $"Parameter '{parameterName}' must be at least {_minLength.Value} characters long. Current length: {stringValue.Length}");
             }
-
-            // Check maximum length
+            
             if (_maxLength.HasValue && stringValue.Length > _maxLength.Value)
             {
                 return ParameterValidationResult.Failure(
                     $"Parameter '{parameterName}' must be no more than {_maxLength.Value} characters long. Current length: {stringValue.Length}");
             }
-
-            // Check pattern
+            
             if (!string.IsNullOrEmpty(_pattern))
             {
                 try

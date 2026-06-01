@@ -48,7 +48,7 @@ namespace DevMenuTool.Editor
         public static void SetTestMode(bool isTestMode)
         {
             _isTestMode = isTestMode;
-            _savedKeys.Clear(); // Clear the in-memory registry when switching modes
+            _savedKeys.Clear();
         }
 
         private static void SaveKeysRegistry()

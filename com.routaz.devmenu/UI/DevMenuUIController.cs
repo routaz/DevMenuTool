@@ -53,7 +53,6 @@ namespace DevMenuTool.UI
 
             foreach (var method in _methodScanner.CachedMethods)
             {
-                // Use the UIBuilder instance to create the UI for each method
                 var methodUI = _uiBuilder.BuildMethodUI(method);
                 scrollView.Add(methodUI);
             }
