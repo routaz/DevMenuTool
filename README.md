@@ -12,9 +12,16 @@ Modular in-game debug menu system for Unity that uses attributes, reflection, an
 
 ## 📦 Installation
 
-1. **Import into Unity** via Package Manager
-2. **Add the DevMenu component** to any GameObject in your scene
-3. **Start using** with the `[DevMenu]` attribute!
+1. **Import into Unity** via Package Manager (`Add package from disk…` and pick this package's `package.json`).
+2. **Mark methods** with the `[DevMenu]` attribute on any `MonoBehaviour` in your scene.
+3. **Use it:**
+   - In the **editor**, open `DevMenu > Open Dev Menu` from the menu bar.
+   - In **Play Mode**, hotkeys work automatically — a listener is injected on start, no setup required.
+   - For an **in-game UI panel**, add a `UIDocument` plus the `DevMenuUIController` component (the UXML needs a `ScrollView` named `method-scroll`).
+
+### **Try the sample**
+
+In the Package Manager, select this package and click **Samples > DevMenu Sample > Import**. It adds a single `DevMenuSample` MonoBehaviour you can drop on an empty GameObject to see actions, typed parameters, validation, and change events in action.
 
 ## 🎯 Quick Start
 
@@ -159,19 +166,7 @@ The DevMenu tool follows **SOLID principles** and **Clean Code** practices:
 
 ## Testing
 
-The tool includes comprehensive unit tests:
-
-```bash
-# Run tests in Unity
-Window > General > Test Runner
-```
-
-### **Test Categories**
-
-- **Core Tests**: Method scanning, caching, and factory tests
-- **Runtime Tests**: Parameter handling and method invocation tests
-- **Integration Tests**: End-to-end workflow tests
-- **Enhanced Tests**: Parameter storage and persistence tests
+Tests are not shipped with the package. They live in the development project (`DevMenuTool/Assets/Tests/`) so consumers stay clean of test code and NUnit references. To run them, open the development project and use `Window > General > Test Runner`.
 
 ## 📁 Project Structure
 
@@ -181,7 +176,7 @@ com.routaz.devmenu/
 │   ├── Interfaces/         # Interface definitions
 │   ├── DevMethod.cs       # Enhanced DevMethod with parameter storage
 │   ├── MethodScanner.cs   # Method discovery
-│   └── DevMenuContainer.cs # DI container
+│   └── DevMenuContainer.cs # Composition root
 ├── Runtime/                # Runtime functionality
 │   ├── MethodInvoker.cs   # Method invocation
 │   ├── Handlers/          # Parameter type handlers
@@ -191,10 +186,9 @@ com.routaz.devmenu/
 │   └── DevMenuUIController.cs
 ├── Editor/                 # Editor-specific functionality
 │   └── DevMenuEditorWindow.cs
-├── Demo/                   # Example implementations
-│   └── EnhancedDevMenuDemo.cs
-└── Tests/                  # Unit tests
-    └── EnhancedDevMethodTests.cs
+└── Samples~/               # Importable sample (via Package Manager)
+    └── DevMenuSample/
+        └── DevMenuSample.cs
 ```
 ## Advanced Features
 

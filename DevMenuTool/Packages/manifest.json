@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.routaz.devmenu": "file:D:/GitHubRepos/UnityDevMenuTool/com.routaz.devmenu",
+    "com.routaz.devmenu": "file:../../com.routaz.devmenu",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.ide.visualstudio": "2.0.23",

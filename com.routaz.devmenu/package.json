@@ -8,5 +8,12 @@
     "name": "Mikael Karlbom"
   },
   "keywords": ["debug", "devtools", "menu", "testing"],
-  "type": "tool"
+  "type": "tool",
+  "samples": [
+    {
+      "displayName": "DevMenu Sample",
+      "description": "Example MonoBehaviour showcasing actions, typed parameters, validation, and change events.",
+      "path": "Samples~/DevMenuSample"
+    }
+  ]
 }

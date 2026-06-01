@@ -1,5 +1,6 @@
 ﻿.devmethod-container {
-    border-top: 1px solid #444;
+    border-top-width: 1px;
+    border-top-color: #444;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #222;
@@ -7,7 +8,7 @@
 }
 
 .devmethod-title {
-    unity-font-style: bold;
+    -unity-font-style: bold;
     font-size: 14px;
     margin-bottom: 6px;
     color: #ddd;
@@ -15,14 +16,11 @@
 
 .devmethod-body {
     flex-direction: column;
-    gap: 4px;
-    
 }
 
 .scroll-container {
     flex-grow: 1;
     padding: 10px;
-    overflow-y: auto;
     background-color: #1e1e1e;
 }
 
@@ -34,7 +32,7 @@
 }
 
 .group-header {
-    unity-font-style: bold;
+    -unity-font-style: bold;
     font-size: 13px;
     color: #eee;
     margin-bottom: 4px;

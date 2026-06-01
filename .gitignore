@@ -1,3 +1,8 @@
+# Unity package "Samples~" folders use a trailing ~ by convention; keep them tracked
+# even though a global gitignore may ignore "*~".
+!**/Samples~/
+!**/Samples~/**
+
 # Unity generated folders (match at repo root and in any subproject, e.g. DevMenuTool/)
 [Ll]ibrary/
 [Tt]emp/

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.routaz.devmenu": {
+      "version": "file:../com.routaz.devmenu",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.multiplayer.center": {
       "version": "1.0.1",
       "depth": 0,
