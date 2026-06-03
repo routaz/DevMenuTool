@@ -1,6 +1,6 @@
 # DevMenu Tool - Enhanced Unity Debug Menu System
 
-Modular in-game debug menu system for Unity that uses attributes, reflection, and UI Toolkit to create developer-friendly debug commands.
+In-game debug menu system for Unity that uses attributes and UI Toolkit to create developer-friendly debug commands.
 
 ### **Core Features**
 - **Attribute-Based**: Simple `[DevMenu]` attribute to mark debug methods
