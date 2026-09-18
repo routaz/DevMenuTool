@@ -52,12 +52,33 @@ public class GameDebugger : MonoBehaviour
 ### **Opening the Menu**
 
 - **Runtime**: Press the configured hotkey or use the UI
-- **Editor**: Go to `DevMenu > Open Dev Menu` in the menu bar
+- **Editor**: Go to `DevMenu > Open Dev Menu` in the menu bar. The window rescans automatically
+  after script recompiles and when entering or exiting Play Mode; use the toolbar **Refresh** button
+  after loading scenes or spawning objects at runtime.
+
+### **Menu-only methods (no hotkey)**
+
+Pass only a group name, or `KeyCode.None`, to list a method in the menu without binding a hotkey:
+
+```csharp
+[DevMenu("World")]                 // menu-only
+private void RespawnEnemies() { }
+
+[DevMenu(KeyCode.None, "World")]    // equivalent
+private void ClearDebris() { }
+```
+
+### **Which objects are scanned**
+
+`[DevMenu]` methods are discovered on every `MonoBehaviour` in the loaded scenes, including inactive
+objects, `DontDestroyOnLoad` objects, and objects hidden with `HideFlags` such as `HideAndDontSave`.
+Prefabs and other assets are not scanned. Only instance methods are supported.
 
 ## Enhanced Parameter System
 
 1. **Parameter Storage**: Each `DevMethod` stores its own parameter values
-2. **Automatic Persistence**: Values are saved to EditorPrefs automatically
+2. **Automatic Persistence**: Values are saved automatically while playing — to `EditorPrefs` in the
+   editor and to `PlayerPrefs` in player builds (hotkey rebinds use the same store)
 3. **Smart Resolution**: UI updates stored values, hotkeys use stored values
 4. **Reset Functionality**: Easy reset to default values
 
@@ -65,7 +86,7 @@ public class GameDebugger : MonoBehaviour
 
 ```mermaid
 graph TD
-    A[DevMethod Created] --> B[Load from EditorPrefs]
+    A[DevMethod Created] --> B[Load from prefs store]
     B --> C{Values Found?}
     C -->|Yes| D[Use Stored Values]
     C -->|No| E[Use Default Values]
@@ -73,7 +94,7 @@ graph TD
     E --> F
     F --> G[User Modifies Values]
     G --> H[Update Stored Parameters]
-    H --> I[Save to EditorPrefs]
+    H --> I[Save to prefs store]
     I --> J[Method Invocation]
     J --> K[Use Stored Values]
 ```
@@ -159,6 +180,13 @@ The DevMenu tool follows **SOLID principles** and **Clean Code** practices:
 - **Strategy Pattern**: `ParameterHandlerRegistry` handles different parameter types
 - **Dependency Injection**: collaborators (`IParameterManager`, `IParameterValidatorManager`, `IParameterEventManager`, `IParameterHandlerRegistry`) are passed in through constructors; `DevMenuContainer` is the composition root that wires them together
 
+### **Assemblies**
+
+- **`DevMenuTool`** (all platforms): core, runtime, UI, and persistence. Contains no unguarded
+  `UnityEditor` references, so it compiles into player builds.
+- **`DevMenuTool.Editor`** (Editor platform only): the `DevMenu > Open Dev Menu` window. It is
+  stripped from player builds automatically.
+
 ### **SOLID Notes**
 
 - **Interface Segregation**: `IDevMethod` is composed from focused role interfaces (`IDevMethodInfo`, `IDevMethodExecutor`, `IParameterManager`, `IParameterValidatorManager`, `IParameterChangeNotifier`) rather than a single fat interface.
@@ -180,11 +208,12 @@ com.routaz.devmenu/
 ├── Runtime/                # Runtime functionality
 │   ├── MethodInvoker.cs   # Method invocation
 │   ├── Handlers/          # Parameter type handlers
+│   ├── Persistence/       # Prefs-backed parameter & hotkey storage (EditorPrefs / PlayerPrefs)
 │   └── DevMenuHotkeyListener.cs
 ├── UI/                     # UI Toolkit components
 │   ├── UIBuilder.cs       # UI construction
 │   └── DevMenuUIController.cs
-├── Editor/                 # Editor-specific functionality
+├── Editor/                 # Editor-only assembly (DevMenuTool.Editor.asmdef)
 │   └── DevMenuEditorWindow.cs
 └── Samples~/               # Importable sample (via Package Manager)
     └── DevMenuSample/

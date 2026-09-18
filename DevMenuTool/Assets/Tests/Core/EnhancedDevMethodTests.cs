@@ -7,7 +7,7 @@ using DevMenuTool.Core.Attributes;
 using UnityEngine;
 
 #if UNITY_EDITOR
-using DevMenuTool.Editor;
+using DevMenuTool.Runtime.Persistence;
 #endif
 
 namespace DevMenuTool.Tests

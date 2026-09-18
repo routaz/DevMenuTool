@@ -3,10 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DevMenuTool.Core;
 using DevMenuTool.Core.Interfaces;
-
-#if UNITY_EDITOR
-using DevMenuTool.Editor;
-#endif
+using DevMenuTool.Runtime.Persistence;
 
 namespace DevMenuTool.Runtime
 {
@@ -53,10 +50,7 @@ namespace DevMenuTool.Runtime
             foreach (var method in _methodScanner.CachedMethods)
             {
                 var signature = method.MethodInfo.ToString();
-                var key = method.ShortcutKey;
-#if UNITY_EDITOR
-                key = DevMenuKeybinds.GetKey(signature, method.ShortcutKey);
-#endif
+                var key = DevMenuKeybinds.GetKey(signature, method.ShortcutKey);
                 _keyCache[signature] = key;
             }
         }

@@ -25,9 +25,7 @@ namespace DevMenuTool.Core
         {
             _methodCache.Clear();
 
-            var monoBehaviours = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true);
-
-            foreach (var mono in monoBehaviours)
+            foreach (var mono in FindSceneMonoBehaviours())
             {
                 var methods = mono.GetType()
                     .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
@@ -44,6 +42,26 @@ namespace DevMenuTool.Core
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns MonoBehaviours living in loaded scenes (including DontDestroyOnLoad), inactive ones,
+        /// and ones hidden via HideFlags (e.g. HideAndDontSave), which FindObjectsByType skips.
+        /// </summary>
+        private static IEnumerable<MonoBehaviour> FindSceneMonoBehaviours()
+        {
+            return Resources.FindObjectsOfTypeAll<MonoBehaviour>()
+                .Where(mono => mono != null && IsRuntimeObject(mono.gameObject));
+        }
+
+        private static bool IsRuntimeObject(GameObject go)
+        {
+            if (go.scene.IsValid())
+                return go.scene.isLoaded;
+
+            // DontSave objects are not attached to any scene. Prefab/other assets also have
+            // no valid scene but never carry the DontSave flag, so they are excluded here.
+            return (go.hideFlags & HideFlags.DontSave) != 0;
         }
 
         public void ClearCache()

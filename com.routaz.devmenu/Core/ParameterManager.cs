@@ -3,10 +3,7 @@ using System.Reflection;
 using DevMenuTool.Core.Interfaces;
 using DevMenuTool.Runtime.Interfaces;
 using UnityEngine;
-
-#if UNITY_EDITOR
-using DevMenuTool.Editor;
-#endif
+using DevMenuTool.Runtime.Persistence;
 
 namespace DevMenuTool.Core
 {
@@ -75,7 +72,6 @@ namespace DevMenuTool.Core
 
         public void SaveToEditorPrefs()
         {
-#if UNITY_EDITOR
             if (!Application.isPlaying) return;
 
             for (int i = 0; i < _parameters.Length; i++)
@@ -85,12 +81,10 @@ namespace DevMenuTool.Core
                 var stringValue = _registry.ToString(value);
                 DevMenuParameterPrefs.SetValue(_methodKey, paramName, stringValue);
             }
-#endif
         }
 
         public bool LoadFromEditorPrefs()
         {
-#if UNITY_EDITOR
             if (!Application.isPlaying) return false;
 
             var allLoaded = true;
@@ -119,9 +113,6 @@ namespace DevMenuTool.Core
             }
 
             return allLoaded;
-#else
-            return false;
-#endif
         }
     }
 }

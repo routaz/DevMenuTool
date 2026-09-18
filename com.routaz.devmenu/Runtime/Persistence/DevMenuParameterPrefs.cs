@@ -1,10 +1,8 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DevMenuTool.Editor
+namespace DevMenuTool.Runtime.Persistence
 {
     public static class DevMenuParameterPrefs
     {
@@ -23,14 +21,14 @@ namespace DevMenuTool.Editor
         {
             if (value == null) return;
             var key = GetPrefKey(methodSignature, paramName);
-            EditorPrefs.SetString(key, value.ToString());
+            DevMenuPrefs.SetString(key, value.ToString());
             _savedKeys.Add(key);
             SaveKeysRegistry();
         }
 
         public static string GetValue(string methodSignature, string paramName)
         {
-            return EditorPrefs.GetString(GetPrefKey(methodSignature, paramName), null);
+            return DevMenuPrefs.GetString(GetPrefKey(methodSignature, paramName), null);
         }
 
         public static void ClearAll()
@@ -38,11 +36,11 @@ namespace DevMenuTool.Editor
             LoadKeysRegistry();
             foreach (var key in _savedKeys)
             {
-                EditorPrefs.DeleteKey(key);
+                DevMenuPrefs.DeleteKey(key);
             }
             _savedKeys.Clear();
             var registryKey = _isTestMode ? TestKeysRegistryKey : KeysRegistryKey;
-            EditorPrefs.DeleteKey(registryKey);
+            DevMenuPrefs.DeleteKey(registryKey);
         }
 
         public static void SetTestMode(bool isTestMode)
@@ -55,13 +53,13 @@ namespace DevMenuTool.Editor
         {
             var registryKey = _isTestMode ? TestKeysRegistryKey : KeysRegistryKey;
             var keysJson = JsonUtility.ToJson(new KeysData { keys = _savedKeys.ToArray() });
-            EditorPrefs.SetString(registryKey, keysJson);
+            DevMenuPrefs.SetString(registryKey, keysJson);
         }
 
         private static void LoadKeysRegistry()
         {
             var registryKey = _isTestMode ? TestKeysRegistryKey : KeysRegistryKey;
-            var keysJson = EditorPrefs.GetString(registryKey, "");
+            var keysJson = DevMenuPrefs.GetString(registryKey, "");
             if (!string.IsNullOrEmpty(keysJson))
             {
                 try
@@ -90,4 +88,3 @@ namespace DevMenuTool.Editor
         }
     }
 }
-#endif

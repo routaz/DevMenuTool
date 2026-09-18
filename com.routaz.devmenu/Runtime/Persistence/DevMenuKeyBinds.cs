@@ -1,7 +1,6 @@
-﻿using UnityEditor;
 using UnityEngine;
 
-namespace DevMenuTool.Editor
+namespace DevMenuTool.Runtime.Persistence
 {
     public static class DevMenuKeybinds
     {
@@ -9,7 +8,7 @@ namespace DevMenuTool.Editor
 
         public static KeyCode GetKey(string methodSignature, KeyCode defaultKey)
         {
-            string keyName = EditorPrefs.GetString(GetPrefKey(methodSignature), defaultKey.ToString());
+            string keyName = DevMenuPrefs.GetString(GetPrefKey(methodSignature), defaultKey.ToString());
 
             if (System.Enum.TryParse(keyName, out KeyCode key))
                 return key;
@@ -19,7 +18,7 @@ namespace DevMenuTool.Editor
 
         public static void SetKey(string methodSignature, KeyCode key)
         {
-            EditorPrefs.SetString(GetPrefKey(methodSignature), key.ToString());
+            DevMenuPrefs.SetString(GetPrefKey(methodSignature), key.ToString());
         }
     }
 }

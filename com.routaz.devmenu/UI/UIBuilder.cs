@@ -6,11 +6,7 @@ using UnityEngine.UIElements;
 using DevMenuTool.Core.Interfaces;
 using DevMenuTool.Runtime;
 using DevMenuTool.Runtime.Interfaces;
-
-#if UNITY_EDITOR
-using UnityEditor;
-using DevMenuTool.Editor;
-#endif
+using DevMenuTool.Runtime.Persistence;
 
 namespace DevMenuTool.UI
 {
@@ -65,11 +61,7 @@ namespace DevMenuTool.UI
             var defaultKey = method.ShortcutKey;
             var methodSignature = method.MethodInfo.ToString();
 
-            #if UNITY_EDITOR
-                var actualKey = DevMenuKeybinds.GetKey(methodSignature, defaultKey);
-            #else
-                var actualKey = defaultKey;
-            #endif
+            var actualKey = DevMenuKeybinds.GetKey(methodSignature, defaultKey);
 
             titleLabel.text = $"{method.MethodInfo.Name} ({actualKey})";
         }

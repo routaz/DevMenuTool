@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using DevMenuTool.Core;
 using DevMenuTool.Core.Interfaces;
 using DevMenuTool.Runtime;
@@ -26,11 +27,26 @@ namespace DevMenuTool.Editor
         {
             _methodScanner = DevMenuContainer.MethodScanner;
             _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker, DevMenuContainer.ParameterHandlerRegistry);
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
+        private void OnDisable()
+        {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+
+        // CreateGUI also runs after every domain reload, so this covers script recompiles.
         public void CreateGUI()
         {
             BuildWindowUI();
+        }
+
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            // Rescan once the new mode is fully entered: scene objects differ between modes,
+            // and Run buttons are only enabled while playing.
+            if (state == PlayModeStateChange.EnteredPlayMode || state == PlayModeStateChange.EnteredEditMode)
+                BuildWindowUI();
         }
 
         private void BuildWindowUI()
@@ -40,9 +56,18 @@ namespace DevMenuTool.Editor
 
             LoadStyles(root);
 
+            root.Add(CreateToolbar());
+
             var scrollView = CreateScrollView(root);
 
             PopulateMethods(scrollView);
+        }
+
+        private Toolbar CreateToolbar()
+        {
+            var toolbar = new Toolbar();
+            toolbar.Add(new ToolbarButton(BuildWindowUI) { text = "Refresh", tooltip = "Rescan loaded scenes for [DevMenu] methods" });
+            return toolbar;
         }
 
         private void LoadStyles(VisualElement root)

@@ -7,7 +7,7 @@ using DevMenuTool.Runtime;
 using DevMenuTool.Core.Attributes;
 
 #if UNITY_EDITOR
-using DevMenuTool.Editor;
+using DevMenuTool.Runtime.Persistence;
 #endif
 
 namespace DevMenuTool.Tests.Integration
@@ -190,6 +190,34 @@ namespace DevMenuTool.Tests.Integration
             Assert.That(_testObject.LastEnumParam, Is.EqualTo(TestEnum.Value2));
         }
 
+        [Test]
+        public void ScanScene_ShouldFindMethodsOnHideAndDontSaveObjects()
+        {
+            // Arrange
+            _testObject.gameObject.hideFlags = HideFlags.HideAndDontSave;
+
+            // Act
+            _scanner.ScanScene();
+
+            // Assert
+            var testMethod = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethod");
+            Assert.That(testMethod, Is.Not.Null);
+            Assert.That(testMethod.TargetInstance, Is.SameAs(_testObject));
+        }
+
+        [Test]
+        public void DevMenuAttribute_WithGroupOnly_ShouldHaveNoHotkey()
+        {
+            // Act
+            _scanner.ScanScene();
+
+            // Assert
+            var menuOnlyMethod = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "MenuOnlyMethod");
+            Assert.That(menuOnlyMethod, Is.Not.Null);
+            Assert.That(menuOnlyMethod.GroupName, Is.EqualTo("TestGroup"));
+            Assert.That(menuOnlyMethod.ShortcutKey, Is.EqualTo(KeyCode.None));
+        }
+
         public class TestMonoBehaviour : MonoBehaviour
         {
             public bool MethodCalled { get; private set; }
@@ -232,6 +260,12 @@ namespace DevMenuTool.Tests.Integration
             {
                 MethodCalled = true;
                 LastEnumParam = enumParam;
+            }
+
+            [DevMenu("TestGroup")]
+            private void MenuOnlyMethod()
+            {
+                MethodCalled = true;
             }
         }
 
