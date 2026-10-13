@@ -7,6 +7,7 @@
   "author": {
     "name": "Mikael Karlbom"
   },
+  "license": "MIT",
   "keywords": ["debug", "devtools", "menu", "testing"],
   "type": "tool",
   "samples": [

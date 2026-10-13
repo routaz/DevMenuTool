@@ -96,3 +96,11 @@ ServerData/
 [Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 [Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 [Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+# Unity Test Runner result exports
+TestResults*.xml
+TestResults*.xml.meta
+
+# Package samples imported into a local project (source of truth is com.routaz.devmenu/Samples~)
+[Aa]ssets/[Ss]amples/
+[Aa]ssets/[Ss]amples.meta
