@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - MIT `LICENSE.md` in the package (and `LICENSE` at the repository root); `package.json` now declares `"license": "MIT"`.
 
+### Changed
+- README rewritten: accurate supported parameter types and Edit Mode behaviour, git URL install, hotkey rebinding, and the legacy Input Manager requirement for hotkeys.
+
 ### Removed
 - Redundant code comments in package sources and tests (XML API docs are unchanged).
 - Unity template leftovers (`TutorialInfo/`, `Readme.asset`) from the development project.

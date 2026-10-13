@@ -1,31 +1,43 @@
-# DevMenu Tool - Enhanced Unity Debug Menu System
+# DevMenu Tool
 
-Modular in-game debug menu system for Unity that uses attributes, reflection, and UI Toolkit to create developer-friendly debug commands.
+An in-game debug menu for Unity. Mark any `MonoBehaviour` method with `[DevMenu]` and it shows up
+in a menu with editable parameters, an optional hotkey, and values that persist between sessions.
+Built on attributes, reflection, and UI Toolkit.
 
-### **Core Features**
-- **Attribute-Based**: Simple `[DevMenu]` attribute to mark debug methods
-- **Hotkey Support**: Assign keyboard shortcuts to debug methods
-- **UI Toolkit Integration**: Modern, responsive UI built with UI Toolkit
-- **Parameter Support**: Full support for all parameter types (int, float, bool, enum, string)
-- **Editor Integration**: Works in both Play Mode and Edit Mode
-- **Project Agnostic**: Designed as a Unity package for easy distribution
+## Features
 
-## 📦 Installation
+- **One attribute**: `[DevMenu]` turns a method into a menu entry. No registration code.
+- **Hotkeys**: bind a key per method, and rebind it from the editor window.
+- **Typed parameters**: `int`, `float`, `bool`, `string`, and enum parameters get matching input fields.
+- **Persistent values**: parameter values and hotkey rebinds are remembered across sessions.
+- **Declarative validation**: constrain parameters with attributes such as `[ParameterRange]`.
+- **Editor window and in-game panel**: use the menu from the editor, or add it to your game's UI.
+- **Player-build safe**: editor code lives in a separate assembly and is stripped from builds.
 
-1. **Import into Unity** via Package Manager (`Add package from disk…` and pick this package's `package.json`).
-2. **Mark methods** with the `[DevMenu]` attribute on any `MonoBehaviour` in your scene.
-3. **Use it:**
-   - In the **editor**, open `DevMenu > Open Dev Menu` from the menu bar.
-   - In **Play Mode**, hotkeys work automatically — a listener is injected on start, no setup required.
-   - For an **in-game UI panel**, add a `UIDocument` plus the `DevMenuUIController` component (the UXML needs a `ScrollView` named `method-scroll`).
+## Requirements
 
-### **Try the sample**
+- Unity 2021.3 or newer.
+- Hotkeys read input through the legacy Input Manager. Set **Project Settings > Player > Active Input
+  Handling** to *Input Manager (Old)* or *Both*. The menu itself works with either setting.
 
-In the Package Manager, select this package and click **Samples > DevMenu Sample > Import**. It adds a single `DevMenuSample` MonoBehaviour you can drop on an empty GameObject to see actions, typed parameters, validation, and change events in action.
+## Installation
 
-## 🎯 Quick Start
+In the Package Manager, choose **+ > Add package from git URL** and enter:
 
-### **Basic Usage**
+```
+https://github.com/routaz/DevMenuTool.git?path=/com.routaz.devmenu
+```
+
+To work from a local clone instead, choose **+ > Add package from disk** and select
+`com.routaz.devmenu/package.json`.
+
+### Try the sample
+
+In the Package Manager, select this package and choose **Samples > DevMenu Sample > Import**. It adds
+a single `DevMenuSample` component. Drop it on an empty GameObject to see actions, typed parameters,
+validation, and change events.
+
+## Quick Start
 
 ```csharp
 using DevMenuTool.Core.Attributes;
@@ -37,119 +49,115 @@ public class GameDebugger : MonoBehaviour
     private void AddGold(int amount = 100)
     {
         Debug.Log($"Added {amount} gold!");
-        // This method will appear in the DevMenu with a hotkey
     }
 
     [DevMenu(KeyCode.H, "Player")]
     private void SetPlayerHealth(int health = 100, bool invincible = false)
     {
         Debug.Log($"Set health to {health}, invincible: {invincible}");
-        // Parameters are stored and remembered between sessions
     }
 }
 ```
 
-### **Opening the Menu**
+Both methods now appear in the menu under their group. Press **G** in Play Mode to add gold using
+the last value entered in the menu.
 
-- **Runtime**: Press the configured hotkey or use the UI
-- **Editor**: Go to `DevMenu > Open Dev Menu` in the menu bar. The window rescans automatically
-  after script recompiles and when entering or exiting Play Mode; use the toolbar **Refresh** button
-  after loading scenes or spawning objects at runtime.
+### Opening the menu
 
-### **Menu-only methods (no hotkey)**
+- **Editor**: choose **DevMenu > Open Dev Menu** from the menu bar. In Edit Mode you can browse
+  methods, edit parameter values, and rebind hotkeys. **Run** is enabled in Play Mode. The window
+  rescans after script recompiles and when entering or exiting Play Mode. Use the toolbar
+  **Refresh** button after loading scenes or spawning objects at runtime.
+- **In Play Mode**: hotkeys work with no setup. A listener is added automatically when the scene loads.
+- **In-game panel**: add a `UIDocument` and the `DevMenuUIController` component. The UXML must
+  contain a `ScrollView` named `method-scroll`.
 
-Pass only a group name, or `KeyCode.None`, to list a method in the menu without binding a hotkey:
+### Menu-only methods
+
+Pass only a group name, or `KeyCode.None`, to list a method without binding a hotkey:
 
 ```csharp
-[DevMenu("World")]                 // menu-only
+[DevMenu("World")]
 private void RespawnEnemies() { }
 
-[DevMenu(KeyCode.None, "World")]    // equivalent
+[DevMenu(KeyCode.None, "World")]
 private void ClearDebris() { }
 ```
 
-### **Which objects are scanned**
+### Which objects are scanned
 
-`[DevMenu]` methods are discovered on every `MonoBehaviour` in the loaded scenes, including inactive
+`[DevMenu]` methods are found on every `MonoBehaviour` in the loaded scenes, including inactive
 objects, `DontDestroyOnLoad` objects, and objects hidden with `HideFlags` such as `HideAndDontSave`.
-Prefabs and other assets are not scanned. Only instance methods are supported.
+Prefabs and other assets are not scanned. Only instance methods are supported, public or private.
 
-## Enhanced Parameter System
+## Parameters
 
-1. **Parameter Storage**: Each `DevMethod` stores its own parameter values
-2. **Automatic Persistence**: Values are saved automatically while playing — to `EditorPrefs` in the
-   editor and to `PlayerPrefs` in player builds (hotkey rebinds use the same store)
-3. **Smart Resolution**: UI updates stored values, hotkeys use stored values
-4. **Reset Functionality**: Easy reset to default values
+Each method keeps its own parameter values:
 
-### **Parameter Flow**
+1. **Stored per method**: each `DevMethod` holds the current value of every parameter.
+2. **Saved automatically**: values are written to `EditorPrefs` in the editor and to `PlayerPrefs` in
+   player builds. Hotkey rebinds use the same store.
+3. **Defaults as fallback**: a method with no saved values starts from its C# default parameter values.
+4. **Reset**: each method has a button that restores its default values.
+
+### Parameter flow
 
 ```mermaid
 graph TD
-    A[DevMethod Created] --> B[Load from prefs store]
-    B --> C{Values Found?}
-    C -->|Yes| D[Use Stored Values]
-    C -->|No| E[Use Default Values]
-    D --> F[UI Shows Current Values]
+    A[DevMethod created] --> B[Load from prefs store]
+    B --> C{Values found?}
+    C -->|Yes| D[Use stored values]
+    C -->|No| E[Use default values]
+    D --> F[UI shows current values]
     E --> F
-    F --> G[User Modifies Values]
-    G --> H[Update Stored Parameters]
+    F --> G[User edits values]
+    G --> H[Update stored parameters]
     H --> I[Save to prefs store]
-    I --> J[Method Invocation]
-    J --> K[Use Stored Values]
+    I --> J[Method invoked]
+    J --> K[Use stored values]
 ```
 
-### **Button Click vs Hotkey**
+### Run button vs. hotkey
 
-| Action | Parameter Source | Behavior |
+| Action | Parameter source | Behavior |
 |--------|------------------|----------|
-| **UI Button** | Current UI field values | Updates stored parameters, then invokes |
-| **Hotkey** | Stored parameter values | Uses last-saved values, no UI interaction |
+| **Run button** | Current field values | Updates the stored values, then invokes |
+| **Hotkey** | Stored values | Invokes with the last saved values |
 
-## Usage Examples
+### Validation
 
-### **Basic Debug Methods**
-
-```csharp
-[DevMenu(KeyCode.F1, "Debug")]
-private void LogPlayerPosition()
-{
-    var player = GameObject.FindGameObjectWithTag("Player");
-    if (player != null)
-        Debug.Log($"Player position: {player.transform.position}");
-}
-
-[DevMenu(KeyCode.F2, "Debug")]
-private void ShowGameStats()
-{
-    Debug.Log($"FPS: {1.0f / Time.deltaTime:F1}");
-    Debug.Log($"Memory: {System.GC.GetTotalMemory(false) / 1024 / 1024}MB");
-}
-```
-
-### **Parameterized Methods**
+Validation is declarative. Annotate parameters with validation attributes and the menu applies them
+when the method is discovered, so the method body needs no guard clauses:
 
 ```csharp
+using DevMenuTool.Core.Attributes;
+
 [DevMenu(KeyCode.G, "Cheats")]
-private void AddGold(int amount = 100)
+private void AddGold([ParameterRange(0, 9999)] int amount = 100)
 {
-    // amount will be stored and remembered
     PlayerGold += amount;
-    Debug.Log($"Added {amount} gold! Total: {PlayerGold}");
 }
 
-[DevMenu(KeyCode.H, "Player")]
-private void SetPlayerStats(int health = 100, float speed = 5.0f, bool invincible = false)
+[DevMenu(KeyCode.N, "Player")]
+private void SetPlayerName([StringValidation(minLength: 2, maxLength: 16)] string name = "Hero")
 {
-    // All parameters are stored independently
-    playerHealth = health;
-    playerSpeed = speed;
-    playerInvincible = invincible;
-    Debug.Log($"Set stats: Health={health}, Speed={speed}, Invincible={invincible}");
+    playerName = name;
 }
 ```
 
-### **Enum Parameters**
+| Attribute | Applies to | Rule |
+|-----------|------------|------|
+| `[ParameterRange(min, max, inclusive = true)]` | numeric | Value must fall within the range |
+| `[StringValidation(minLength, maxLength, pattern, allowEmpty)]` | string | Length, regex, and emptiness rules |
+| `[Required]` | string | Value must not be null or empty |
+
+An invalid entry is rejected and the last valid value is kept. The parameter is never silently reset
+to its default. To add your own rule, implement `IParameterValidator` and a matching
+`ParameterValidationAttribute`.
+
+### Enum parameters
+
+Enums get a dropdown:
 
 ```csharp
 public enum GameState { Menu, Playing, Paused, GameOver }
@@ -158,74 +166,13 @@ public enum GameState { Menu, Playing, Paused, GameOver }
 private void SetGameState(GameState state = GameState.Playing)
 {
     currentGameState = state;
-    Debug.Log($"Game state set to: {state}");
 }
 ```
 
-## Architecture
+### Custom parameter types
 
-The DevMenu tool follows **SOLID principles** and **Clean Code** practices:
-
-### **Core Components**
-
-- **`DevMethod`**: Represents a debug method with parameter storage
-- **`MethodScanner`**: Discovers methods with `[DevMenu]` attributes
-- **`MethodInvoker`**: Handles method invocation with parameter resolution
-- **`UIBuilder`**: Creates UI elements for method interaction
-- **`DevMenuContainer`**: Composition root that wires and exposes the shared services
-
-### **Design Patterns**
-
-- **Factory Pattern**: `DevMethodFactory` creates `DevMethod` instances and wires their collaborators
-- **Strategy Pattern**: `ParameterHandlerRegistry` handles different parameter types
-- **Dependency Injection**: collaborators (`IParameterManager`, `IParameterValidatorManager`, `IParameterEventManager`, `IParameterHandlerRegistry`) are passed in through constructors; `DevMenuContainer` is the composition root that wires them together
-
-### **Assemblies**
-
-- **`DevMenuTool`** (all platforms): core, runtime, UI, and persistence. Contains no unguarded
-  `UnityEditor` references, so it compiles into player builds.
-- **`DevMenuTool.Editor`** (Editor platform only): the `DevMenu > Open Dev Menu` window. It is
-  stripped from player builds automatically.
-
-### **SOLID Notes**
-
-- **Interface Segregation**: `IDevMethod` is composed from focused role interfaces (`IDevMethodInfo`, `IDevMethodExecutor`, `IParameterManager`, `IParameterValidatorManager`, `IParameterChangeNotifier`) rather than a single fat interface.
-- **Dependency Inversion**: `DevMethod` depends on collaborator abstractions injected via its constructor instead of `new`-ing concretes, and parameter handling is resolved through the `IParameterHandlerRegistry` abstraction instead of a static lookup.
-
-## Testing
-
-Tests are not shipped with the package. They live in the development project (`DevMenuTool/Assets/Tests/`) so consumers stay clean of test code and NUnit references. To run them, open the development project and use `Window > General > Test Runner`.
-
-## 📁 Project Structure
-
-```
-com.routaz.devmenu/
-├── Core/                    # Core interfaces and implementations
-│   ├── Interfaces/         # Interface definitions
-│   ├── DevMethod.cs       # Enhanced DevMethod with parameter storage
-│   ├── MethodScanner.cs   # Method discovery
-│   └── DevMenuContainer.cs # Composition root
-├── Runtime/                # Runtime functionality
-│   ├── MethodInvoker.cs   # Method invocation
-│   ├── Handlers/          # Parameter type handlers
-│   ├── Persistence/       # Prefs-backed parameter & hotkey storage (EditorPrefs / PlayerPrefs)
-│   └── DevMenuHotkeyListener.cs
-├── UI/                     # UI Toolkit components
-│   ├── UIBuilder.cs       # UI construction
-│   └── DevMenuUIController.cs
-├── Editor/                 # Editor-only assembly (DevMenuTool.Editor.asmdef)
-│   └── DevMenuEditorWindow.cs
-└── Samples~/               # Importable sample (via Package Manager)
-    └── DevMenuSample/
-        └── DevMenuSample.cs
-```
-## Advanced Features
-
-### **Custom Parameter Types**
-
-Parameter parsing/formatting is handled by `IParameterHandler` strategies. The built-in set
-covers string, numeric, bool, and enum types. To support an additional type, implement
-`IParameterHandler`:
+Parsing and formatting are handled by `IParameterHandler` implementations. To support another type,
+implement the interface:
 
 ```csharp
 public class Vector3ParameterHandler : IParameterHandler
@@ -234,7 +181,6 @@ public class Vector3ParameterHandler : IParameterHandler
 
     public object Parse(string input, Type targetType)
     {
-        // Parse "x,y,z" format
         var parts = input.Split(',');
         return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
     }
@@ -247,47 +193,57 @@ public class Vector3ParameterHandler : IParameterHandler
 }
 ```
 
-> **Note:** handlers are currently registered in the `ParameterHandlerRegistry` constructor.
-> Add your handler to that list to enable it — there is no runtime registration API yet.
+> **Note:** there is no runtime registration API yet. Add your handler to the list in the
+> `ParameterHandlerRegistry` constructor to enable it.
 
-### **Parameter Validation**
+## Architecture
 
-Validation is **declarative**: annotate parameters with validation attributes and the
-DevMenu wires them up automatically when the method is discovered. There is no need to
-hand-write guard clauses inside the method body.
+### Core components
 
-```csharp
-using DevMenuTool.Core.Attributes;
+- **`DevMethod`**: a discovered method together with its stored parameter values.
+- **`MethodScanner`**: finds methods marked with `[DevMenu]`.
+- **`MethodInvoker`**: invokes a method, resolving each parameter value.
+- **`UIBuilder`**: builds the UI for each method.
+- **`DevMenuContainer`**: composition root that creates and wires the shared services.
 
-[DevMenu(KeyCode.G, "Cheats")]
-private void AddGold([ParameterRange(0, 9999)] int amount = 100)
-{
-    // Only reached with a valid amount; no manual checks required.
-    PlayerGold += amount;
-    Debug.Log($"Added {amount} gold!");
-}
+### Design
 
-[DevMenu(KeyCode.N, "Player")]
-private void SetPlayerName([StringValidation(minLength: 2, maxLength: 16)] string name = "Hero")
-{
-    playerName = name;
-}
+- **Factory**: `DevMethodFactory` creates `DevMethod` instances and wires their collaborators.
+- **Strategy**: `ParameterHandlerRegistry` selects an `IParameterHandler` per parameter type.
+- **Dependency injection**: `DevMethod` receives its collaborators (`IParameterManager`,
+  `IParameterValidatorManager`, `IParameterEventManager`, `IParameterHandlerRegistry`) through its
+  constructor. `DevMenuContainer` wires them together.
+- **Interface segregation**: `IDevMethod` is composed from focused role interfaces (`IDevMethodInfo`,
+  `IDevMethodExecutor`, `IParameterManager`, `IParameterValidatorManager`, `IParameterChangeNotifier`).
+
+### Assemblies
+
+- **`DevMenuTool`** (all platforms): core, runtime, UI, and persistence. It has no unguarded
+  `UnityEditor` references, so it compiles into player builds.
+- **`DevMenuTool.Editor`** (Editor only): the **DevMenu > Open Dev Menu** window. Unity strips it from
+  player builds.
+
+### Package layout
+
+```
+com.routaz.devmenu/
+├── Core/                     # Attributes, interfaces, DevMethod, scanning, validation
+├── Runtime/
+│   ├── Handlers/             # Parameter type handlers
+│   ├── Persistence/          # Parameter and hotkey storage (EditorPrefs / PlayerPrefs)
+│   ├── MethodInvoker.cs
+│   └── DevMenuHotkeyListener.cs
+├── UI/                       # UI Toolkit builder, controller, UXML and USS
+├── Editor/                   # Editor window (DevMenuTool.Editor assembly)
+└── Samples~/DevMenuSample/   # Importable sample
 ```
 
-Built-in attributes:
+## Testing
 
-| Attribute | Applies to | Purpose |
-|-----------|------------|---------|
-| `[ParameterRange(min, max, inclusive = true)]` | numeric | Value must fall within the range |
-| `[StringValidation(minLength, maxLength, pattern, allowEmpty)]` | string | Length / regex / emptiness rules |
-| `[Required]` | string | Value must be non-null and non-empty |
+Tests are not shipped with the package, so projects that install it do not pull in test code or NUnit.
+They live in the development project at `DevMenuTool/Assets/Tests/`. Open that project and run them
+from **Window > General > Test Runner**.
 
-When an entered value fails validation the edit is **rejected** and the last valid value is
-kept — the parameter is never silently overwritten with the default. Add your own rule by
-implementing `IParameterValidator` and a matching `ParameterValidationAttribute`.
+## License
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
-
-**Made with ❤️ for Unity developers**
+MIT. See [LICENSE](LICENSE.md).
