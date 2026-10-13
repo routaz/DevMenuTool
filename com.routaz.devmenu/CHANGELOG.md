@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Redundant code comments in package sources and tests (XML API docs are unchanged).
 - Unity template leftovers (`TutorialInfo/`, `Readme.asset`) from the development project.
 - Committed IDE settings (`.idea/`), Test Runner result exports and an imported copy of the 0.1.0 sample; these are now git-ignored.
+- Stray Unity project at the repository root (`Packages/`, `ProjectSettings/`). `DevMenuTool/` is the only development project.
 
 ## [0.2.0] - 2026-09-18
 
