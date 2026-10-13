@@ -24,7 +24,6 @@ namespace DevMenuTool.Core
 
         public void Refresh()
         {
-            // This could be extended to handle refresh logic if needed
             Clear();
         }
     }

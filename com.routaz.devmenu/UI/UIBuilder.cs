@@ -174,7 +174,7 @@ namespace DevMenuTool.UI
 
         private void SetupResetButton(VisualElement body, IDevMethod method, List<(VisualElement field, ParameterInfo info)> parameterFields)
         {
-            if (method.Parameters.Length == 0) return; // No parameters to reset
+            if (method.Parameters.Length == 0) return;
 
             var resetButton = new Button { text = "Reset to Defaults" };
             resetButton.style.marginTop = 4;

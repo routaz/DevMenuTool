@@ -1,5 +1,4 @@
-﻿// DevMethod.cs
-using System;
+﻿using System;
 using System.Reflection;
 using DevMenuTool.Core.Interfaces;
 using DevMenuTool.Core.Attributes;

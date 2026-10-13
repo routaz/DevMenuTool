@@ -20,7 +20,7 @@ namespace DevMenuTool.Runtime
 
             var go = new GameObject(RuntimeObjectName);
             go.AddComponent<DevMenuHotkeyListener>();
-            go.hideFlags = HideFlags.HideAndDontSave; // Invisible in hierarchy
+            go.hideFlags = HideFlags.HideAndDontSave;
             Object.DontDestroyOnLoad(go);
         }
     }

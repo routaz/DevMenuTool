@@ -23,14 +23,11 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithValidParameters_ShouldCreateDevMethod()
         {
-            // Arrange
             var methodInfo = typeof(TestClass).GetMethod("TestMethod");
             var attribute = new DevMenuAttribute(KeyCode.T, "TestGroup");
 
-            // Act
             var result = _factory.CreateDevMethod(methodInfo, _testInstance, attribute);
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result.MethodInfo, Is.EqualTo(methodInfo));
             Assert.That(result.TargetInstance, Is.EqualTo(_testInstance));
@@ -42,10 +39,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithNullMethodInfo_ShouldThrowException()
         {
-            // Arrange
             var attribute = new DevMenuAttribute(KeyCode.T, "TestGroup");
 
-            // Act & Assert
             Assert.Throws<System.ArgumentNullException>(() => 
                 _factory.CreateDevMethod(null, _testInstance, attribute));
         }
@@ -53,14 +48,11 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithNullTargetInstance_ShouldCreateDevMethod()
         {
-            // Arrange
             var methodInfo = typeof(TestClass).GetMethod("TestMethod");
             var attribute = new DevMenuAttribute(KeyCode.T, "TestGroup");
 
-            // Act
             var result = _factory.CreateDevMethod(methodInfo, null, attribute);
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result.TargetInstance, Is.Null);
         }
@@ -68,10 +60,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithNullAttribute_ShouldThrowException()
         {
-            // Arrange
             var methodInfo = typeof(TestClass).GetMethod("TestMethod");
 
-            // Act & Assert
             Assert.Throws<System.ArgumentNullException>(() => 
                 _factory.CreateDevMethod(methodInfo, _testInstance, null));
         }
@@ -79,14 +69,11 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithMethodWithParameters_ShouldCreateDevMethodWithParameters()
         {
-            // Arrange
             var methodInfo = typeof(TestClass).GetMethod("TestMethodWithParams");
             var attribute = new DevMenuAttribute(KeyCode.T, "TestGroup");
 
-            // Act
             var result = _factory.CreateDevMethod(methodInfo, _testInstance, attribute);
 
-            // Assert
             Assert.That(result.Parameters.Length, Is.EqualTo(2));
             Assert.That(result.Parameters[0].Name, Is.EqualTo("param1"));
             Assert.That(result.Parameters[0].ParameterType, Is.EqualTo(typeof(int)));
@@ -97,14 +84,11 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void CreateDevMethod_WithMethodWithDefaultParameters_ShouldCreateDevMethodWithDefaults()
         {
-            // Arrange
             var methodInfo = typeof(TestClass).GetMethod("TestMethodWithDefaults");
             var attribute = new DevMenuAttribute(KeyCode.T, "TestGroup");
 
-            // Act
             var result = _factory.CreateDevMethod(methodInfo, _testInstance, attribute);
 
-            // Assert
             Assert.That(result.Parameters.Length, Is.EqualTo(2));
             Assert.That(result.Parameters[0].HasDefaultValue, Is.True);
             Assert.That(result.Parameters[0].DefaultValue, Is.EqualTo(42));
@@ -116,17 +100,14 @@ namespace DevMenuTool.Tests.Core
         {
             public void TestMethod()
             {
-                // Test method
             }
 
             public void TestMethodWithParams(int param1, string param2)
             {
-                // Test method with parameters
             }
 
             public void TestMethodWithDefaults(int param1 = 42, string param2 = "default")
             {
-                // Test method with default parameters
             }
         }
     }

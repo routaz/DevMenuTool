@@ -25,28 +25,21 @@ namespace DevMenuTool.Tests.Runtime
         [Test]
         public void Invoke_WithMethodWithoutParameters_ShouldInvokeMethod()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethod");
 
-            // Act
             _invoker.Invoke(method);
 
-            // Assert
             Assert.That(_testInstance.MethodCalled, Is.True);
         }
 
         [Test]
         public void Invoke_WithMethodWithParameters_ShouldUseDefaultValues()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethodWithParams");
 
-            // Act
             _invoker.Invoke(method);
 
-            // Assert
             Assert.That(_testInstance.MethodCalled, Is.True);
-            // MethodInvoker will use default values (0 for int, null for string)
             Assert.That(_testInstance.LastIntParam, Is.EqualTo(0));
             Assert.That(_testInstance.LastStringParam, Is.Null);
         }
@@ -54,29 +47,23 @@ namespace DevMenuTool.Tests.Runtime
         [Test]
         public void Invoke_WithMethodWithDefaultParameters_ShouldUseDefaults()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethodWithDefaults");
 
-            // Act
             _invoker.Invoke(method);
 
-            // Assert
             Assert.That(_testInstance.MethodCalled, Is.True);
-            Assert.That(_testInstance.LastIntParam, Is.EqualTo(10)); // Default value
-            Assert.That(_testInstance.LastStringParam, Is.EqualTo("default")); // Default value
+            Assert.That(_testInstance.LastIntParam, Is.EqualTo(10));
+            Assert.That(_testInstance.LastStringParam, Is.EqualTo("default"));
         }
 
         [Test]
         public void Invoke_WithMethodWithSuppliedArgs_ShouldUseSuppliedArgs()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethodWithParams");
             var suppliedArgs = new object[] { 100, "supplied" };
 
-            // Act
             _invoker.Invoke(method, suppliedArgs);
 
-            // Assert
             Assert.That(_testInstance.MethodCalled, Is.True);
             Assert.That(_testInstance.LastIntParam, Is.EqualTo(100));
             Assert.That(_testInstance.LastStringParam, Is.EqualTo("supplied"));
@@ -85,29 +72,23 @@ namespace DevMenuTool.Tests.Runtime
         [Test]
         public void Invoke_WithMethodWithMixedArgs_ShouldUseSuppliedArgsAndDefaults()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethodWithDefaults");
-            var suppliedArgs = new object[] { 200 }; // Only supply first parameter
+            var suppliedArgs = new object[] { 200 };
 
-            // Act
             _invoker.Invoke(method, suppliedArgs);
 
-            // Assert
             Assert.That(_testInstance.MethodCalled, Is.True);
-            Assert.That(_testInstance.LastIntParam, Is.EqualTo(200)); // Supplied value
-            Assert.That(_testInstance.LastStringParam, Is.EqualTo("default")); // Default value
+            Assert.That(_testInstance.LastIntParam, Is.EqualTo(200));
+            Assert.That(_testInstance.LastStringParam, Is.EqualTo("default"));
         }
 
         [Test]
         public void Invoke_WithMethodThatThrowsException_ShouldLogError()
         {
-            // Arrange
             var method = CreateMockDevMethod("TestMethodThatThrows");
             
-            // Expect the error log message BEFORE the action that generates it
             LogAssert.Expect(LogType.Error, "Error invoking method TestMethodThatThrows: Test exception");
 
-            // Act & Assert
             Assert.DoesNotThrow(() => _invoker.Invoke(method));
         }
 
@@ -168,7 +149,6 @@ namespace DevMenuTool.Tests.Runtime
 
             public void Invoke(object[] parameters = null)
             {
-                // Use supplied parameters if provided, otherwise use stored parameters
                 var argsToUse = parameters ?? GetCurrentParameters();
                 MethodInfo?.Invoke(TargetInstance, argsToUse);
             }
@@ -213,35 +193,29 @@ namespace DevMenuTool.Tests.Runtime
 
             public void SaveToEditorPrefs()
             {
-                // Mock implementation
                 Debug.Log($"Mock: Saving parameters for method {_methodName}");
             }
 
             public bool LoadFromEditorPrefs()
             {
-                // Mock implementation
                 Debug.Log($"Mock: Loading parameters for method {_methodName}");
                 return true;
             }
 
             public void AddValidator(int parameterIndex, IParameterValidator validator)
             {
-                // Mock implementation - not used in these tests
             }
 
             public void RemoveValidator(int parameterIndex, IParameterValidator validator)
             {
-                // Mock implementation - not used in these tests
             }
 
             public void ClearValidators(int parameterIndex)
             {
-                // Mock implementation - not used in these tests
             }
 
             public ParameterValidationResult ValidateParameter(int parameterIndex, object value)
             {
-                // Mock implementation - always return success
                 return ParameterValidationResult.Success();
             }
 
@@ -249,12 +223,10 @@ namespace DevMenuTool.Tests.Runtime
             
             public void AddParameterChangeHandler(IParameterChangeHandler handler)
             {
-                // Mock implementation - not used in these tests
             }
 
             public void RemoveParameterChangeHandler(IParameterChangeHandler handler)
             {
-                // Mock implementation - not used in these tests
             }
         }
     }

@@ -17,10 +17,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodCache_ShouldReturnMethodCacheInstance()
         {
-            // Act
             var result = DevMenuContainer.MethodCache;
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<MethodCache>());
         }
@@ -28,10 +26,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodFactory_ShouldReturnDevMethodFactoryInstance()
         {
-            // Act
             var result = DevMenuContainer.MethodFactory;
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<DevMethodFactory>());
         }
@@ -39,10 +35,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodScanner_ShouldReturnMethodScannerInstance()
         {
-            // Act
             var result = DevMenuContainer.MethodScanner;
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<MethodScanner>());
         }
@@ -50,10 +44,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodInvoker_ShouldReturnMethodInvokerInstance()
         {
-            // Act
             var result = DevMenuContainer.MethodInvoker;
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<MethodInvoker>());
         }
@@ -61,10 +53,8 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void ParameterHandlerRegistry_ShouldReturnParameterHandlerRegistryInstance()
         {
-            // Act
             var result = DevMenuContainer.ParameterHandlerRegistry;
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<ParameterHandlerRegistry>());
         }
@@ -72,12 +62,10 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodScanner_ShouldUseMethodCacheAndFactory()
         {
-            // Act
             var scanner = DevMenuContainer.MethodScanner;
             var cache = DevMenuContainer.MethodCache;
             var factory = DevMenuContainer.MethodFactory;
 
-            // Assert
             Assert.That(scanner, Is.Not.Null);
             Assert.That(cache, Is.Not.Null);
             Assert.That(factory, Is.Not.Null);
@@ -86,11 +74,9 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MethodInvoker_ShouldUseParameterHandlerRegistry()
         {
-            // Act
             var invoker = DevMenuContainer.MethodInvoker;
             var registry = DevMenuContainer.ParameterHandlerRegistry;
 
-            // Assert
             Assert.That(invoker, Is.Not.Null);
             Assert.That(registry, Is.Not.Null);
         }
@@ -98,18 +84,14 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void Reset_ShouldClearAllInstances()
         {
-            // Arrange
             var cache = DevMenuContainer.MethodCache;
             var factory = DevMenuContainer.MethodFactory;
             var scanner = DevMenuContainer.MethodScanner;
             var invoker = DevMenuContainer.MethodInvoker;
             var registry = DevMenuContainer.ParameterHandlerRegistry;
 
-            // Act
             DevMenuContainer.Reset();
 
-            // Assert
-            // After reset, new instances should be created
             var newCache = DevMenuContainer.MethodCache;
             var newFactory = DevMenuContainer.MethodFactory;
             var newScanner = DevMenuContainer.MethodScanner;
@@ -126,7 +108,6 @@ namespace DevMenuTool.Tests.Core
         [Test]
         public void MultipleCalls_ShouldReturnSameInstances()
         {
-            // Act
             var cache1 = DevMenuContainer.MethodCache;
             var cache2 = DevMenuContainer.MethodCache;
 
@@ -142,7 +123,6 @@ namespace DevMenuTool.Tests.Core
             var registry1 = DevMenuContainer.ParameterHandlerRegistry;
             var registry2 = DevMenuContainer.ParameterHandlerRegistry;
 
-            // Assert
             Assert.That(cache1, Is.SameAs(cache2));
             Assert.That(factory1, Is.SameAs(factory2));
             Assert.That(scanner1, Is.SameAs(scanner2));

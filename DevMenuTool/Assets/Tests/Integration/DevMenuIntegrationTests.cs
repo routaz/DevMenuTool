@@ -25,11 +25,9 @@ namespace DevMenuTool.Tests.Integration
             _scanner = DevMenuContainer.MethodScanner;
             _invoker = DevMenuContainer.MethodInvoker;
             
-            // Create a test GameObject with our test component
             var go = new GameObject("TestObject");
             _testObject = go.AddComponent<TestMonoBehaviour>();
             
-            // Enable test mode to isolate test data from development data
             #if UNITY_EDITOR
             DevMenuParameterPrefs.SetTestMode(true);
             DevMenuParameterPrefs.ClearAll();
@@ -45,7 +43,6 @@ namespace DevMenuTool.Tests.Integration
                 Object.DestroyImmediate(_testObject.gameObject);
             }
             
-            // Disable test mode and clean up test data
             #if UNITY_EDITOR
             DevMenuParameterPrefs.ClearAll();
             DevMenuParameterPrefs.SetTestMode(false);
@@ -55,13 +52,10 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void CompleteWorkflow_ShouldFindAndInvokeMethods()
         {
-            // Arrange
             _testObject.ResetState();
 
-            // Act
             _scanner.ScanScene();
 
-            // Assert
             Assert.That(_scanner.CachedMethods.Count, Is.GreaterThan(0));
             
             var testMethod = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethod");
@@ -69,7 +63,6 @@ namespace DevMenuTool.Tests.Integration
             Assert.That(testMethod.GroupName, Is.EqualTo("TestGroup"));
             Assert.That(testMethod.ShortcutKey, Is.EqualTo(KeyCode.T));
 
-            // Invoke the method
             _invoker.Invoke(testMethod);
             Assert.That(_testObject.MethodCalled, Is.True);
         }
@@ -77,20 +70,16 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void CompleteWorkflow_WithParameters_ShouldInvokeWithCorrectParameters()
         {
-            // Arrange
             _testObject.ResetState();
 
-            // Act
             _scanner.ScanScene();
             var methodWithParams = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethodWithParams");
             
             Assert.That(methodWithParams, Is.Not.Null);
             Assert.That(methodWithParams.Parameters.Length, Is.EqualTo(2));
 
-            // Invoke with parameters
             _invoker.Invoke(methodWithParams, new object[] { 42, "test" });
 
-            // Assert
             Assert.That(_testObject.MethodCalled, Is.True);
             Assert.That(_testObject.LastIntParam, Is.EqualTo(42));
             Assert.That(_testObject.LastStringParam, Is.EqualTo("test"));
@@ -99,63 +88,50 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void CompleteWorkflow_WithDefaultParameters_ShouldUseDefaults()
         {
-            // Arrange
             _testObject.ResetState();
 
-            // Act
             _scanner.ScanScene();
             var methodWithDefaults = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethodWithDefaults");
             
             Assert.That(methodWithDefaults, Is.Not.Null);
             Assert.That(methodWithDefaults.Parameters.Length, Is.EqualTo(2));
 
-            // Force reset to defaults to ensure clean state
             methodWithDefaults.ResetToDefaults();
 
-            // Invoke without parameters (should use defaults)
             _invoker.Invoke(methodWithDefaults);
 
-            // Assert
             Assert.That(_testObject.MethodCalled, Is.True);
-            Assert.That(_testObject.LastIntParam, Is.EqualTo(10)); // Default value
-            Assert.That(_testObject.LastStringParam, Is.EqualTo("default")); // Default value
+            Assert.That(_testObject.LastIntParam, Is.EqualTo(10));
+            Assert.That(_testObject.LastStringParam, Is.EqualTo("default"));
         }
 
         [Test]
         public void CompleteWorkflow_WithMixedParameters_ShouldUseSuppliedAndDefaults()
         {
-            // Arrange
             _testObject.ResetState();
 
-            // Act
             _scanner.ScanScene();
             var methodWithDefaults = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethodWithDefaults");
             
-            // Invoke with only first parameter
             _invoker.Invoke(methodWithDefaults, new object[] { 100 });
 
-            // Assert
             Assert.That(_testObject.MethodCalled, Is.True);
-            Assert.That(_testObject.LastIntParam, Is.EqualTo(100)); // Supplied value
-            Assert.That(_testObject.LastStringParam, Is.EqualTo("default")); // Default value
+            Assert.That(_testObject.LastIntParam, Is.EqualTo(100));
+            Assert.That(_testObject.LastStringParam, Is.EqualTo("default"));
         }
 
         [Test]
         public void CompleteWorkflow_WithMultipleObjects_ShouldFindAllMethods()
         {
-            // Arrange
             var go2 = new GameObject("TestObject2");
             var testObject2 = go2.AddComponent<TestMonoBehaviour>();
 
             try
             {
-                // Act
                 _scanner.ScanScene();
 
-                // Assert
                 Assert.That(_scanner.CachedMethods.Count, Is.GreaterThan(0));
                 
-                // Should find methods from both objects
                 var methodsFromObject1 = _scanner.CachedMethods.Where(m => m.TargetInstance == _testObject);
                 var methodsFromObject2 = _scanner.CachedMethods.Where(m => m.TargetInstance == testObject2);
                 
@@ -171,10 +147,8 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void CompleteWorkflow_WithEnumParameter_ShouldHandleEnumCorrectly()
         {
-            // Arrange
             _testObject.ResetState();
 
-            // Act
             _scanner.ScanScene();
             var methodWithEnum = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethodWithEnum");
             
@@ -182,10 +156,8 @@ namespace DevMenuTool.Tests.Integration
             Assert.That(methodWithEnum.Parameters.Length, Is.EqualTo(1));
             Assert.That(methodWithEnum.Parameters[0].ParameterType.IsEnum, Is.True);
 
-            // Invoke with enum parameter
             _invoker.Invoke(methodWithEnum, new object[] { TestEnum.Value2 });
 
-            // Assert
             Assert.That(_testObject.MethodCalled, Is.True);
             Assert.That(_testObject.LastEnumParam, Is.EqualTo(TestEnum.Value2));
         }
@@ -193,13 +165,10 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void ScanScene_ShouldFindMethodsOnHideAndDontSaveObjects()
         {
-            // Arrange
             _testObject.gameObject.hideFlags = HideFlags.HideAndDontSave;
 
-            // Act
             _scanner.ScanScene();
 
-            // Assert
             var testMethod = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "TestMethod");
             Assert.That(testMethod, Is.Not.Null);
             Assert.That(testMethod.TargetInstance, Is.SameAs(_testObject));
@@ -208,10 +177,8 @@ namespace DevMenuTool.Tests.Integration
         [Test]
         public void DevMenuAttribute_WithGroupOnly_ShouldHaveNoHotkey()
         {
-            // Act
             _scanner.ScanScene();
 
-            // Assert
             var menuOnlyMethod = _scanner.CachedMethods.FirstOrDefault(m => m.ButtonLabel == "MenuOnlyMethod");
             Assert.That(menuOnlyMethod, Is.Not.Null);
             Assert.That(menuOnlyMethod.GroupName, Is.EqualTo("TestGroup"));

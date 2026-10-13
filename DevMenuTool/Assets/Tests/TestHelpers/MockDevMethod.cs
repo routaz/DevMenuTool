@@ -15,7 +15,6 @@ namespace DevMenuTool.Tests.TestHelpers
         public object TargetInstance { get; set; }
         public ParameterInfo[] Parameters { get; set; }
 
-        // Mock storage for parameters and validation
         private readonly Dictionary<int, object> _parameters = new Dictionary<int, object>();
         private readonly Dictionary<int, List<IParameterValidator>> _validators = new Dictionary<int, List<IParameterValidator>>();
         private readonly List<IParameterChangeHandler> _changeHandlers = new List<IParameterChangeHandler>();
@@ -95,7 +94,6 @@ namespace DevMenuTool.Tests.TestHelpers
 
             var oldValue = _parameters.TryGetValue(index, out var existingValue) ? existingValue : Parameters[index].HasDefaultValue ? Parameters[index].DefaultValue : null;
             
-            // Validate the parameter if validators exist
             if (_validators.TryGetValue(index, out var validators))
             {
                 foreach (var validator in validators)
@@ -104,14 +102,13 @@ namespace DevMenuTool.Tests.TestHelpers
                     if (!result.IsValid)
                     {
                         Debug.LogWarning($"Parameter validation failed: {result.ErrorMessage}");
-                        return; // Don't set invalid value
+                        return;
                     }
                 }
             }
 
             _parameters[index] = value;
             
-            // Trigger parameter change event
             ParameterChanged?.Invoke(this, new ParameterChangeEventArgs(
                 ButtonLabel, 
                 Parameters[index].Name, 
@@ -131,15 +128,13 @@ namespace DevMenuTool.Tests.TestHelpers
 
         public void SaveToEditorPrefs()
         {
-            // Mock implementation - in real implementation this would save to EditorPrefs
             Debug.Log($"Mock: Saving parameters for method {ButtonLabel}");
         }
 
         public bool LoadFromEditorPrefs()
         {
-            // Mock implementation - in real implementation this would load from EditorPrefs
             Debug.Log($"Mock: Loading parameters for method {ButtonLabel}");
-            return true; // Mock success
+            return true;
         }
 
         public void AddValidator(int parameterIndex, IParameterValidator validator)
@@ -169,7 +164,7 @@ namespace DevMenuTool.Tests.TestHelpers
                 return ParameterValidationResult.Failure($"Invalid parameter index: {parameterIndex}");
 
             if (!_validators.TryGetValue(parameterIndex, out var validators))
-                return ParameterValidationResult.Success(); // No validators = always valid
+                return ParameterValidationResult.Success();
 
             foreach (var validator in validators)
             {

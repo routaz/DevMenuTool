@@ -1,5 +1,4 @@
-﻿// MethodInvoker.cs
-using System;
+﻿using System;
 using DevMenuTool.Core.Interfaces;
 using UnityEngine;
 
