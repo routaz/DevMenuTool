@@ -8,9 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - MIT `LICENSE.md` in the package (and `LICENSE` at the repository root); `package.json` now declares `"license": "MIT"`.
+- Background command index (`DevMenuMethodIndex`, exposed as `DevMenuContainer.MethodIndex`): the list of `[DevMenu]` methods is built once, from `TypeCache` in the Editor (on project open and after every recompile) and on a background thread at startup in player builds (only assemblies that reference `DevMenuTool` are searched).
+- **DevMenu > Rescan Commands** menu item: rebuilds the index, rescans the loaded scenes, refreshes open Dev Menu windows and logs the command and type counts.
+- `IMethodScanner.RebuildIndex()`: rebuilds the index from the loaded assemblies, then rescans.
 
 ### Changed
 - README rewritten: accurate supported parameter types and Edit Mode behaviour, git URL install, hotkey rebinding, and the legacy Input Manager requirement for hotkeys.
+- Opening the menu no longer reflects over every `MonoBehaviour` in the scene, which froze the Editor in large projects. `MethodScanner.ScanScene()` now only looks up live instances of the indexed types, so its cost is proportional to the number of command-bearing types. Inactive, `DontDestroyOnLoad` and `HideFlags`-hidden objects are still found.
+- `MethodScanner`'s constructor now takes an `IDevMenuMethodIndex` as a third argument.
+- A `[DevMenu]` method declared private on a base class now also appears on subclass instances (previously only public and protected base methods did). Methods declared on open generic classes are no longer listed.
 
 ### Removed
 - Redundant code comments in package sources and tests (XML API docs are unchanged).

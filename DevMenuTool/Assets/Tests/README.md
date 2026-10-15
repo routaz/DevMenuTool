@@ -8,6 +8,8 @@ This directory contains comprehensive unit tests for the DevMenu tool, following
 - **MethodCacheTests.cs** - Tests for the method caching functionality
 - **DevMethodFactoryTests.cs** - Tests for the factory pattern implementation
 - **DevMenuContainerTests.cs** - Tests for the dependency injection container
+- **DevMenuMethodIndexTests.cs** - Tests for the `[DevMenu]` method index (Set, assembly filtering, background build)
+- **MethodScannerIndexTests.cs** - Tests for the index-driven scene scan (hidden/inactive objects, subclasses, RebuildIndex)
 
 ### Runtime Tests
 - **ParameterHandlerTests.cs** - Tests for individual parameter handlers (String, Numeric, Boolean, Enum)

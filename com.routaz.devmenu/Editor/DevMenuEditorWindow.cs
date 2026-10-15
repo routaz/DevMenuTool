@@ -14,6 +14,7 @@ namespace DevMenuTool.Editor
     {
         private UIBuilder _uiBuilder;
         private IMethodScanner _methodScanner;
+        private IDevMenuMethodIndex _methodIndex;
 
         [MenuItem("DevMenu/Open Dev Menu")]
         public static void ShowWindow()
@@ -28,11 +29,14 @@ namespace DevMenuTool.Editor
             _methodScanner = DevMenuContainer.MethodScanner;
             _uiBuilder = new UIBuilder(DevMenuContainer.MethodInvoker, DevMenuContainer.ParameterHandlerRegistry);
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            _methodIndex = DevMenuContainer.MethodIndex;
+            _methodIndex.Rebuilt += BuildWindowUI;
         }
 
         private void OnDisable()
         {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            _methodIndex.Rebuilt -= BuildWindowUI;
         }
 
         // CreateGUI also runs after every domain reload, so this covers script recompiles.

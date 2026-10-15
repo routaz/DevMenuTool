@@ -89,6 +89,23 @@ private void ClearDebris() { }
 `[DevMenu]` methods are found on every `MonoBehaviour` in the loaded scenes, including inactive
 objects, `DontDestroyOnLoad` objects, and objects hidden with `HideFlags` such as `HideAndDontSave`.
 Prefabs and other assets are not scanned. Only instance methods are supported, public or private.
+A `[DevMenu]` method declared on a base class also appears on instances of its subclasses.
+
+### Performance and Rescan Commands
+
+Opening the menu does not reflect over the whole scene. The package keeps an index of the types
+that declare `[DevMenu]` methods and only looks up live instances of those types, so the cost grows
+with the number of command-bearing types, not with the size of the scene.
+
+- **Editor**: the index is filled from Unity's `TypeCache` when the project opens and after every
+  recompile, which is near-instant.
+- **Player builds**: the index is built once on a background thread at startup, from the
+  assemblies that reference `DevMenuTool`. The first scan waits for it if it hasn't finished.
+
+If a command is missing, choose **DevMenu > Rescan Commands**. It rebuilds the index, rescans the
+loaded scenes, refreshes any open Dev Menu window, and logs `[DevMenu] Rescanned: N commands on M types.`
+Methods declared on open generic classes (for example `class Spawner<T> : MonoBehaviour`) are not
+listed.
 
 ## Parameters
 
@@ -201,7 +218,8 @@ public class Vector3ParameterHandler : IParameterHandler
 ### Core components
 
 - **`DevMethod`**: a discovered method together with its stored parameter values.
-- **`MethodScanner`**: finds methods marked with `[DevMenu]`.
+- **`DevMenuMethodIndex`**: the list of `[DevMenu]` methods in the loaded code, built once.
+- **`MethodScanner`**: finds live instances of the indexed types and creates their `DevMethod`s.
 - **`MethodInvoker`**: invokes a method, resolving each parameter value.
 - **`UIBuilder`**: builds the UI for each method.
 - **`DevMenuContainer`**: composition root that creates and wires the shared services.
@@ -220,7 +238,8 @@ public class Vector3ParameterHandler : IParameterHandler
 
 - **`DevMenuTool`** (all platforms): core, runtime, UI, and persistence. It has no unguarded
   `UnityEditor` references, so it compiles into player builds.
-- **`DevMenuTool.Editor`** (Editor only): the **DevMenu > Open Dev Menu** window. Unity strips it from
+- **`DevMenuTool.Editor`** (Editor only): the **DevMenu > Open Dev Menu** window, the
+  **DevMenu > Rescan Commands** menu item, and the `TypeCache` index bootstrap. Unity strips it from
   player builds.
 
 ### Package layout

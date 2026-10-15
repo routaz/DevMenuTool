@@ -60,6 +60,19 @@ namespace DevMenuTool.Tests.Core
         }
 
         [Test]
+        public void MethodIndex_ShouldReturnSameInstanceUntilReset()
+        {
+            var index = DevMenuContainer.MethodIndex;
+
+            Assert.That(index, Is.InstanceOf<DevMenuMethodIndex>());
+            Assert.That(DevMenuContainer.MethodIndex, Is.SameAs(index));
+
+            DevMenuContainer.Reset();
+
+            Assert.That(DevMenuContainer.MethodIndex, Is.Not.SameAs(index));
+        }
+
+        [Test]
         public void MethodScanner_ShouldUseMethodCacheAndFactory()
         {
             var scanner = DevMenuContainer.MethodScanner;

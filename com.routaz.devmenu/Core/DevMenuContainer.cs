@@ -9,12 +9,14 @@ namespace DevMenuTool.Core
         private static IMethodCache _methodCache;
         private static IDevMethodFactory _methodFactory;
         private static IMethodScanner _methodScanner;
+        private static IDevMenuMethodIndex _methodIndex;
         private static IMethodInvoker _methodInvoker;
         private static IParameterHandlerRegistry _parameterHandlerRegistry;
 
         public static IMethodCache MethodCache => _methodCache ??= new MethodCache();
         public static IDevMethodFactory MethodFactory => _methodFactory ??= new DevMethodFactory(ParameterHandlerRegistry);
-        public static IMethodScanner MethodScanner => _methodScanner ??= new MethodScanner(MethodCache, MethodFactory);
+        public static IMethodScanner MethodScanner => _methodScanner ??= new MethodScanner(MethodCache, MethodFactory, MethodIndex);
+        public static IDevMenuMethodIndex MethodIndex => _methodIndex ??= new DevMenuMethodIndex();
         public static IMethodInvoker MethodInvoker => _methodInvoker ??= new MethodInvoker();
         public static IParameterHandlerRegistry ParameterHandlerRegistry => _parameterHandlerRegistry ??= new ParameterHandlerRegistry();
 
@@ -23,6 +25,7 @@ namespace DevMenuTool.Core
             _methodCache = null;
             _methodFactory = null;
             _methodScanner = null;
+            _methodIndex = null;
             _methodInvoker = null;
             _parameterHandlerRegistry = null;
         }
