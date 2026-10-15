@@ -4,6 +4,7 @@ namespace DevMenuTool.Runtime
 {
     public static class DevMenuPlayModeInjector
     {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         private const string RuntimeObjectName = "__DevMenuHotkeyListener";
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -23,5 +24,6 @@ namespace DevMenuTool.Runtime
             go.hideFlags = HideFlags.HideAndDontSave;
             Object.DontDestroyOnLoad(go);
         }
+#endif
     }
 }
