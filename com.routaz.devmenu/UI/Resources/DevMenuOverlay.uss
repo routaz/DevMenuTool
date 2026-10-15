@@ -1,0 +1,62 @@
+.devmenu-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 420px;
+    padding: 8px;
+    flex-direction: column;
+    background-color: rgba(20, 20, 20, 0.92);
+    border-left-width: 1px;
+    border-left-color: #444;
+}
+
+.devmenu-overlay__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.devmenu-overlay__title {
+    -unity-font-style: bold;
+    font-size: 15px;
+    color: #eee;
+}
+
+.devmenu-overlay__hint {
+    font-size: 11px;
+    color: #999;
+}
+
+.devmenu-overlay__commands {
+    flex-grow: 1;
+}
+
+.devmenu-overlay__group {
+    margin-bottom: 4px;
+}
+
+.devmenu-log {
+    flex-shrink: 0;
+    min-height: 80px;
+    margin-top: 6px;
+    padding: 4px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top-width: 1px;
+    border-top-color: #444;
+}
+
+.devmenu-log__line {
+    font-size: 11px;
+    color: #ccc;
+    white-space: normal;
+}
+
+.devmenu-log--warning {
+    color: #e6c35c;
+}
+
+.devmenu-log--error {
+    color: #e66a5c;
+}

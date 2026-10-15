@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="devmenu-overlay" class="devmenu-overlay">
+        <ui:VisualElement class="devmenu-overlay__header">
+            <ui:Label text="DEV MENU" class="devmenu-overlay__title" />
+            <ui:Label name="devmenu-hint" class="devmenu-overlay__hint" />
+        </ui:VisualElement>
+        <ui:ScrollView name="devmenu-commands" class="devmenu-overlay__commands" />
+        <ui:VisualElement name="devmenu-log" class="devmenu-log" />
+    </ui:VisualElement>
+</ui:UXML>
