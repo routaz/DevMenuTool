@@ -1,6 +1,6 @@
 {
   "name": "com.routaz.devmenu",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "displayName": "DevMenuTool",
   "description": "Modular in-game method menu for Unity using attributes, reflection, and UI Toolkit.",
   "unity": "2021.3",

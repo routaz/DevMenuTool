@@ -6,13 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-15
+
 ### Added
+- A runtime overlay for Play Mode and development builds. F1 toggles a panel on the right with commands grouped by name, editable parameters, Run buttons and the last 5 log lines. The game keeps running.
+- `DevMenuOverlayInput.IsOpen`, `IsPointerOverOverlay` and `IsTextInputFocused`, so games can keep their own input out of the way.
+- Optional Input System support: when `com.unity.inputsystem` is installed, the toggle key and pointer are read through it.
 - MIT `LICENSE.md` in the package (and `LICENSE` at the repository root); `package.json` now declares `"license": "MIT"`.
 - Background command index (`DevMenuMethodIndex`, exposed as `DevMenuContainer.MethodIndex`): the list of `[DevMenu]` methods is built once, from `TypeCache` in the Editor (on project open and after every recompile) and on a background thread at startup in player builds (only assemblies that reference `DevMenuTool` are searched). WebGL has no threads, so there the index is built synchronously on the first scan.
 - **DevMenu > Rescan Commands** menu item: rebuilds the index, rescans the loaded scenes, refreshes open Dev Menu windows and logs the command and type counts.
 - `IMethodScanner.RebuildIndex()`: rebuilds the index from the loaded assemblies, then rescans.
 
 ### Changed
+- The hotkey listener and the overlay are only spawned in the Editor and development builds. Release builds get neither.
+- The hotkey listener's legacy `Input` calls are compiled only when the legacy Input Manager is enabled. In Input-System-only projects, per-command hotkeys are inactive, and commands are run from the overlay or the editor window instead.
 - README rewritten: accurate supported parameter types and Edit Mode behaviour, git URL install, hotkey rebinding, and the legacy Input Manager requirement for hotkeys.
 - Opening the menu no longer reflects over every `MonoBehaviour` in the scene, which froze the Editor in large projects. `MethodScanner.ScanScene()` now only looks up live instances of the indexed types, so its cost is proportional to the number of command-bearing types. Inactive, `DontDestroyOnLoad` and `HideFlags`-hidden objects are still found.
 - `MethodScanner`'s constructor now takes an `IDevMenuMethodIndex` as a third argument.

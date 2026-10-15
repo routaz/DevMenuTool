@@ -11,14 +11,16 @@ Built on attributes, reflection, and UI Toolkit.
 - **Typed parameters**: `int`, `float`, `bool`, `string`, and enum parameters get matching input fields.
 - **Persistent values**: parameter values and hotkey rebinds are remembered across sessions.
 - **Declarative validation**: constrain parameters with attributes such as `[ParameterRange]`.
-- **Editor window and in-game panel**: use the menu from the editor, or add it to your game's UI.
+- **Editor window and an F1 overlay for development builds**: use the menu from the editor, or press F1 in Play Mode and development builds.
 - **Player-build safe**: editor code lives in a separate assembly and is stripped from builds.
 
 ## Requirements
 
 - Unity 2021.3 or newer.
-- Hotkeys read input through the legacy Input Manager. Set **Project Settings > Player > Active Input
-  Handling** to *Input Manager (Old)* or *Both*. The menu itself works with either setting.
+- Per-command hotkeys need the legacy Input Manager. Set **Project Settings > Player > Active Input
+  Handling** to *Input Manager (Old)* or *Both*. In an Input-System-only project they are inactive;
+  run commands from the overlay or the editor window instead.
+- The runtime overlay works with either input system. It uses the Input System package when present.
 
 ## Installation
 
@@ -71,6 +73,27 @@ the last value entered in the menu.
 - **In Play Mode**: hotkeys work with no setup. A listener is added automatically when the scene loads.
 - **In-game panel**: add a `UIDocument` and the `DevMenuUIController` component. The UXML must
   contain a `ScrollView` named `method-scroll`.
+
+### Using the menu in builds
+
+Press **F1** to toggle the overlay: a panel on the right side of the screen. It is available in Play
+Mode and in development builds, and never in release builds. The game keeps running while it is open.
+
+- Commands are grouped by their `[DevMenu]` group name. Group collapse state is remembered for the session.
+- Each command has editable parameters and a **Run** button. Values go through the same parameter
+  storage as the editor window, so reopening the overlay keeps what you typed.
+- The last 5 log lines are shown at the bottom of the panel.
+- The toggle key can be changed with the `DevMenuOverlay.ToggleKey` property. With the Input System
+  package, F1-F12 and backquote are supported.
+- The panel is a separate UI Toolkit panel at sorting order 10000, and while closed it blocks no clicks.
+
+Games should use `DevMenuOverlayInput` to ignore world clicks while `IsPointerOverOverlay` is true,
+and typed hotkeys while `IsTextInputFocused` is true. `IsOpen` reports whether the panel is shown.
+
+```csharp
+if (DevMenuOverlayInput.IsPointerOverOverlay) return;   // ignore world clicks
+if (DevMenuOverlayInput.IsTextInputFocused) return;      // ignore typed hotkeys
+```
 
 ### Menu-only methods
 
@@ -251,8 +274,16 @@ com.routaz.devmenu/
 │   ├── Handlers/             # Parameter type handlers
 │   ├── Persistence/          # Parameter and hotkey storage (EditorPrefs / PlayerPrefs)
 │   ├── MethodInvoker.cs
-│   └── DevMenuHotkeyListener.cs
+│   ├── DevMenuHotkeyListener.cs
+│   ├── DevMenuInput.cs       # Legacy / Input System key and pointer reads
+│   ├── DevMenuKeyMap.cs      # KeyCode to Input System key mapping
+│   └── DevMenuPlayModeInjector.cs  # Spawns the listener and overlay (Editor, development builds)
 ├── UI/                       # UI Toolkit builder, controller, UXML and USS
+│   ├── DevMenuOverlay.cs     # F1 runtime overlay
+│   ├── DevMenuOverlayInput.cs  # IsOpen / IsPointerOverOverlay / IsTextInputFocused
+│   ├── DevMenuCommandGroups.cs # Grouping of commands by group name
+│   ├── DevMenuLogBuffer.cs   # Last log lines shown in the overlay
+│   └── Resources/            # Overlay UXML and USS, runtime theme
 ├── Editor/                   # Editor window (DevMenuTool.Editor assembly)
 └── Samples~/DevMenuSample/   # Importable sample
 ```
