@@ -76,7 +76,10 @@ behind it.
   - Hidden at start.
   - F1 toggles `IsOpen`.
   - On open: rescan (`MethodScanner.ScanScene()`) and rebuild the list, so commands from scenes loaded since the
-    last open appear.
+    last open appear. This is cheap because it relies on the command index from commits 75a32f1 and 4ce7629. That
+    index is built once: from `TypeCache` in the Editor, and on a background thread at startup in players. With
+    it, `ScanScene` only looks up live instances of the few command-bearing types, with no reflection per scene
+    object, so opening the overlay causes no lag spike.
   - On close: the panel is hidden (`display: none`). It is not destroyed, so foldout state persists for the session.
 - **Statics for games.**
   - `public static bool IsOpen { get; }`
