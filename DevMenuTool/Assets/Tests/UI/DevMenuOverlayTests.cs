@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 using DevMenuTool.Core.Attributes;
+using DevMenuTool.Runtime;
 using DevMenuTool.UI;
 
 namespace DevMenuTool.Tests.UI
@@ -15,6 +16,9 @@ namespace DevMenuTool.Tests.UI
 
         [DevMenu("OverlayTests")]
         private void SetFlag(bool flag = false) => Flag = flag;
+
+        [DevMenu("OverlayTests")]
+        private void SetName(string name = "") { }
     }
 
     public class DevMenuOverlayTests
@@ -26,11 +30,16 @@ namespace DevMenuTool.Tests.UI
         [UnitySetUp]
         public IEnumerator SetUp()
         {
+            foreach (var existing in Object.FindObjectsByType<DevMenuOverlay>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                Object.Destroy(existing.gameObject);
+            yield return null;
+
             _commandsGo = new GameObject("OverlayTestCommands");
             _commandsGo.AddComponent<OverlayTestCommands>();
             _overlayGo = new GameObject("TestOverlay");
             _overlay = _overlayGo.AddComponent<DevMenuOverlay>();
             yield return null;
+            Assert.AreSame(_overlay, DevMenuOverlay.Instance);
         }
 
         [UnityTearDown]
@@ -120,6 +129,41 @@ namespace DevMenuTool.Tests.UI
             yield return null;
 
             Assert.IsTrue(Group("OverlayTests").value);
+        }
+
+        [UnityTest]
+        public IEnumerator SecondOverlay_IsDestroyedAndInstanceUnchanged()
+        {
+            LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("DevMenuOverlay already exists"));
+            var duplicateGo = new GameObject("DuplicateOverlay");
+            var duplicate = duplicateGo.AddComponent<DevMenuOverlay>();
+            yield return null;
+
+            Assert.AreSame(_overlay, DevMenuOverlay.Instance);
+            Assert.IsTrue(duplicate == null, "the duplicate's component should be destroyed");
+            Object.Destroy(duplicateGo);
+        }
+
+        [UnityTest]
+        public IEnumerator Close_BlursFocusedTextField()
+        {
+            _overlay.Open();
+            yield return null;
+            var field = Group("OverlayTests").Q<TextField>();
+            field.Focus();
+            yield return null;
+            Assert.IsNotNull(Panel.panel.focusController.focusedElement, "precondition: the field has focus");
+
+            _overlay.Close();
+
+            Assert.IsNull(Panel.panel.focusController.focusedElement);
+        }
+
+        [Test]
+        public void EffectiveToggleKey_LegacyInput_ReturnsRequestedKey()
+        {
+            Assert.AreEqual(KeyCode.K, DevMenuInput.EffectiveToggleKey(KeyCode.K));
+            Assert.AreEqual(KeyCode.F2, DevMenuInput.EffectiveToggleKey(KeyCode.F2));
         }
     }
 }

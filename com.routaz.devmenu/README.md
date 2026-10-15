@@ -83,16 +83,34 @@ Mode and in development builds, and never in release builds. The game keeps runn
 - Each command has editable parameters and a **Run** button. Values go through the same parameter
   storage as the editor window, so reopening the overlay keeps what you typed.
 - The last 5 log lines are shown at the bottom of the panel.
-- The toggle key can be changed with the `DevMenuOverlay.ToggleKey` property. With the Input System
-  package, F1-F12 and backquote are supported.
+- The toggle key can be changed with `DevMenuOverlay.Instance.ToggleKey` (see the example below). With
+  the legacy Input Manager any `KeyCode` works. With the Input System package, F1-F12 and backquote
+  work; any other key falls back to F1 there, with a one-time warning.
 - The panel is a separate UI Toolkit panel at sorting order 10000, and while closed it blocks no clicks.
 
 Games should use `DevMenuOverlayInput` to ignore world clicks while `IsPointerOverOverlay` is true,
 and typed hotkeys while `IsTextInputFocused` is true. `IsOpen` reports whether the panel is shown.
+`DevMenuOverlay.Instance` is the active overlay; it is null in release builds.
 
 ```csharp
-if (DevMenuOverlayInput.IsPointerOverOverlay) return;   // ignore world clicks
-if (DevMenuOverlayInput.IsTextInputFocused) return;      // ignore typed hotkeys
+using DevMenuTool.UI;
+using UnityEngine;
+
+public class PlayerInput : MonoBehaviour
+{
+    private void Start()
+    {
+        if (DevMenuOverlay.Instance != null)
+            DevMenuOverlay.Instance.ToggleKey = KeyCode.F2;   // optional: change the toggle key
+    }
+
+    private void Update()
+    {
+        if (DevMenuOverlayInput.IsPointerOverOverlay) return;   // ignore world clicks
+        if (DevMenuOverlayInput.IsTextInputFocused) return;      // ignore typed hotkeys
+        // ... game input ...
+    }
+}
 ```
 
 ### Menu-only methods

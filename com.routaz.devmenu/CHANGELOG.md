@@ -16,10 +16,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Background command index (`DevMenuMethodIndex`, exposed as `DevMenuContainer.MethodIndex`): the list of `[DevMenu]` methods is built once, from `TypeCache` in the Editor (on project open and after every recompile) and on a background thread at startup in player builds (only assemblies that reference `DevMenuTool` are searched). WebGL has no threads, so there the index is built synchronously on the first scan.
 - **DevMenu > Rescan Commands** menu item: rebuilds the index, rescans the loaded scenes, refreshes open Dev Menu windows and logs the command and type counts.
 - `IMethodScanner.RebuildIndex()`: rebuilds the index from the loaded assemblies, then rescans.
+- `DevMenuOverlay.Instance`: the one active overlay. A second overlay logs a warning and destroys its own component.
+- `DevMenuInput.EffectiveToggleKey(KeyCode)`: the key the overlay actually reads (F1 for keys the Input System path doesn't support). The overlay's hint label shows it.
 
 ### Changed
 - The hotkey listener and the overlay are only spawned in the Editor and development builds. Release builds get neither.
 - The hotkey listener's legacy `Input` calls are compiled only when the legacy Input Manager is enabled. In Input-System-only projects, per-command hotkeys are inactive, and commands are run from the overlay or the editor window instead.
+- Command hotkeys don't fire while a text or number field in the overlay has focus, so typing into a parameter no longer runs the commands bound to those letters.
+- Closing the overlay removes keyboard focus from its fields.
+- The overlay runs early (`DefaultExecutionOrder(-1000)`), so `DevMenuOverlayInput` is current before game scripts read it, and it destroys its `PanelSettings` when it is destroyed.
+- The Play Mode injector skips spawning an overlay when one already exists in the scene.
+- The background command index is only started in the Editor and development builds.
+- The sample's `LogState` command is bound to F3, since F1 toggles the overlay.
 - README rewritten: accurate supported parameter types and Edit Mode behaviour, git URL install, hotkey rebinding, and the legacy Input Manager requirement for hotkeys.
 - Opening the menu no longer reflects over every `MonoBehaviour` in the scene, which froze the Editor in large projects. `MethodScanner.ScanScene()` now only looks up live instances of the indexed types, so its cost is proportional to the number of command-bearing types. Inactive, `DontDestroyOnLoad` and `HideFlags`-hidden objects are still found.
 - `MethodScanner`'s constructor now takes an `IDevMenuMethodIndex` as a third argument.

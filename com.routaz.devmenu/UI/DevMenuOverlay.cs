@@ -9,8 +9,10 @@ namespace DevMenuTool.UI
     /// <summary>
     /// Runtime DevMenu panel for Play Mode and development builds: toggled with <see cref="ToggleKey"/>,
     /// lists [DevMenu] commands grouped by name, and shows the last log lines. The game keeps running.
-    /// Spawned by <see cref="DevMenuPlayModeInjector"/>.
+    /// Spawned by <see cref="DevMenuPlayModeInjector"/>. Only one overlay is active: a second one
+    /// logs a warning and destroys its own component.
     /// </summary>
+    [DefaultExecutionOrder(-1000)]
     public class DevMenuOverlay : MonoBehaviour
     {
         public const int SortingOrder = 10000;
@@ -21,12 +23,15 @@ namespace DevMenuTool.UI
         private readonly HashSet<string> _collapsedGroups = new();
         private int _renderedLogVersion = -1;
 
+        private PanelSettings _panelSettings;
         private UIDocument _document;
         private VisualElement _panel;
         private ScrollView _commands;
         private VisualElement _logStrip;
         private Label _hint;
         private UIBuilder _uiBuilder;
+
+        public static DevMenuOverlay Instance { get; private set; }
 
         public bool IsOpen { get; private set; }
 
@@ -38,18 +43,44 @@ namespace DevMenuTool.UI
 
         public IReadOnlyList<DevMenuLogEntry> LogEntries => _log.Snapshot();
 
-        private void OnEnable() => Application.logMessageReceived += OnLogMessage;
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Debug.LogWarning($"[DevMenu] A DevMenuOverlay already exists on '{Instance.name}'; destroying the duplicate on '{name}'.");
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
+
+        private void OnEnable()
+        {
+            if (Instance == this)
+                Application.logMessageReceived += OnLogMessage;
+        }
 
         private void OnDisable()
         {
             Application.logMessageReceived -= OnLogMessage;
-            DevMenuOverlayInput.Clear();
+            if (Instance == this)
+                DevMenuOverlayInput.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            if (_panelSettings != null)
+                Destroy(_panelSettings);
+            if (Instance == this)
+                Instance = null;
         }
 
         private void OnLogMessage(string message, string stackTrace, LogType type) => _log.Add(type, message);
 
         private void Update()
         {
+            if (Instance != this) return;
+
             if (DevMenuInput.WasPressedThisFrame(toggleKey))
                 Toggle();
 
@@ -68,7 +99,7 @@ namespace DevMenuTool.UI
         public void Open()
         {
             EnsureBuilt();
-            _hint.text = $"{toggleKey} to close";
+            _hint.text = $"{DevMenuInput.EffectiveToggleKey(toggleKey)} to close";
             RebuildCommands();
             _panel.style.display = DisplayStyle.Flex;
             IsOpen = true;
@@ -78,6 +109,7 @@ namespace DevMenuTool.UI
 
         public void Close()
         {
+            (_panel?.panel?.focusController?.focusedElement as VisualElement)?.Blur();
             if (_panel != null)
                 _panel.style.display = DisplayStyle.None;
             IsOpen = false;
@@ -88,19 +120,19 @@ namespace DevMenuTool.UI
         {
             if (_document != null) return;
 
-            var settings = ScriptableObject.CreateInstance<PanelSettings>();
-            settings.name = "DevMenuOverlayPanelSettings";
-            settings.themeStyleSheet = Resources.Load<ThemeStyleSheet>("DevMenuRuntimeTheme");
-            settings.scaleMode = PanelScaleMode.ConstantPixelSize;
-            settings.scale = 1f;
-            settings.sortingOrder = SortingOrder;
+            _panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
+            _panelSettings.name = "DevMenuOverlayPanelSettings";
+            _panelSettings.themeStyleSheet = Resources.Load<ThemeStyleSheet>("DevMenuRuntimeTheme");
+            _panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
+            _panelSettings.scale = 1f;
+            _panelSettings.sortingOrder = SortingOrder;
 
             // Host the UIDocument on an inactive child so OnEnable runs with the panel settings already set.
             var host = new GameObject("DevMenuOverlayDocument");
             host.SetActive(false);
             host.transform.SetParent(transform, false);
             _document = host.AddComponent<UIDocument>();
-            _document.panelSettings = settings;
+            _document.panelSettings = _panelSettings;
             host.SetActive(true);
 
             var root = _document.rootVisualElement;
@@ -173,6 +205,7 @@ namespace DevMenuTool.UI
 
         private void PublishInputState()
         {
+            if (Instance != this) return;
             DevMenuOverlayInput.Set(IsOpen, IsOpen && IsPointerOverPanel(), IsOpen && IsTextInputFocused());
         }
 

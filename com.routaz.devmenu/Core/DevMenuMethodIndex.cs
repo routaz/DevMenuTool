@@ -95,12 +95,14 @@ namespace DevMenuTool.Core
             return assembly.GetReferencedAssemblies().Any(reference => reference.Name == name);
         }
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void StartPlayerBuild()
         {
             // In the editor the index is already built from TypeCache, so this is a no-op there.
             DevMenuContainer.MethodIndex.BuildInBackground();
         }
+#endif
 
         private static IEnumerable<MethodInfo> FindMethods(IEnumerable<Assembly> assemblies)
         {

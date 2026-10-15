@@ -25,7 +25,7 @@ namespace DevMenuTool.Runtime
             go.hideFlags = HideFlags.HideAndDontSave;
             Object.DontDestroyOnLoad(go);
 
-            if (GameObject.Find(OverlayObjectName) == null)
+            if (Object.FindAnyObjectByType<DevMenuTool.UI.DevMenuOverlay>() == null)
             {
                 var overlay = new GameObject(OverlayObjectName);
                 overlay.AddComponent<DevMenuTool.UI.DevMenuOverlay>();
