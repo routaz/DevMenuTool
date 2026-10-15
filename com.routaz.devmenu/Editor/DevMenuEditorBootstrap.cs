@@ -21,8 +21,10 @@ namespace DevMenuTool.Editor
         [MenuItem("DevMenu/Rescan Commands")]
         public static void RescanCommands()
         {
+            // Open Dev Menu windows rescan when the index raises Rebuilt; only scan here if none is open.
             BuildIndexFromTypeCache();
-            DevMenuContainer.MethodScanner.ScanScene();
+            if (!EditorWindow.HasOpenInstances<DevMenuEditorWindow>())
+                DevMenuContainer.MethodScanner.ScanScene();
 
             var methods = DevMenuContainer.MethodIndex.Methods;
             var typeCount = methods.Select(m => m.DeclaringType).Distinct().Count();

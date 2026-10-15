@@ -22,7 +22,7 @@ namespace DevMenuTool.Core
         private static readonly Assembly DevMenuAssembly = typeof(DevMenuAttribute).Assembly;
 
         private IndexedMethod[] _methods;
-        private Task _backgroundBuild;
+        private Task _backgroundBuild = null;
 
         public IReadOnlyList<IndexedMethod> Methods => Volatile.Read(ref _methods) ?? Array.Empty<IndexedMethod>();
         public bool IsBuilt => Volatile.Read(ref _methods) != null;
@@ -43,17 +43,24 @@ namespace DevMenuTool.Core
         /// <summary>
         /// Builds the index on a worker thread. The result is only published if nothing else built the
         /// index first, and <see cref="Rebuilt"/> is not raised, because it would run on the worker thread.
+        /// WebGL has no threads, so there it does nothing and <see cref="EnsureBuilt"/> builds synchronously.
         /// </summary>
         public void BuildInBackground()
         {
+#if !(UNITY_WEBGL && !UNITY_EDITOR)
             if (IsBuilt || _backgroundBuild != null)
                 return;
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             _backgroundBuild = Task.Run(() =>
                 Interlocked.CompareExchange(ref _methods, Collect(FindMethods(assemblies)), null));
+#endif
         }
 
+        /// <summary>
+        /// Builds the index if it isn't built yet, without raising <see cref="Rebuilt"/>: this runs lazily
+        /// inside a scan, and a handler that rescans would re-enter it.
+        /// </summary>
         public void EnsureBuilt()
         {
             if (IsBuilt)
@@ -75,7 +82,7 @@ namespace DevMenuTool.Core
                     return;
             }
 
-            BuildFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            Volatile.Write(ref _methods, Collect(FindMethods(AppDomain.CurrentDomain.GetAssemblies())));
         }
 
         /// <summary>True for the DevMenuTool assembly and for assemblies that reference it.</summary>

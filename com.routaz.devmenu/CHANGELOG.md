@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - MIT `LICENSE.md` in the package (and `LICENSE` at the repository root); `package.json` now declares `"license": "MIT"`.
-- Background command index (`DevMenuMethodIndex`, exposed as `DevMenuContainer.MethodIndex`): the list of `[DevMenu]` methods is built once, from `TypeCache` in the Editor (on project open and after every recompile) and on a background thread at startup in player builds (only assemblies that reference `DevMenuTool` are searched).
+- Background command index (`DevMenuMethodIndex`, exposed as `DevMenuContainer.MethodIndex`): the list of `[DevMenu]` methods is built once, from `TypeCache` in the Editor (on project open and after every recompile) and on a background thread at startup in player builds (only assemblies that reference `DevMenuTool` are searched). WebGL has no threads, so there the index is built synchronously on the first scan.
 - **DevMenu > Rescan Commands** menu item: rebuilds the index, rescans the loaded scenes, refreshes open Dev Menu windows and logs the command and type counts.
 - `IMethodScanner.RebuildIndex()`: rebuilds the index from the loaded assemblies, then rescans.
 

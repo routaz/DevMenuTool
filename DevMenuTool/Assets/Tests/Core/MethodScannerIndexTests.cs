@@ -90,6 +90,26 @@ namespace DevMenuTool.Tests.Core
                 "RebuildIndex should rebuild from the loaded assemblies");
         }
 
+        [Test]
+        public void ScanScene_OnUnbuiltIndex_DoesNotRaiseRebuiltOrDuplicateMethods()
+        {
+            var index = new DevMenuMethodIndex();
+            var scanner = new MethodScanner(new MethodCache(), new DevMethodFactory(), index);
+            var raised = 0;
+            index.Rebuilt += () =>
+            {
+                raised++;
+                scanner.ScanScene();
+            };
+            var target = Create<ScanTargetBehaviour>("LazyBuild");
+
+            scanner.ScanScene();
+
+            Assert.That(index.IsBuilt, Is.True);
+            Assert.That(raised, Is.EqualTo(0));
+            Assert.That(scanner.CachedMethods.Count(m => ReferenceEquals(m.TargetInstance, target)), Is.EqualTo(1));
+        }
+
         private T Create<T>(string name) where T : MonoBehaviour
         {
             var go = new GameObject(name);
