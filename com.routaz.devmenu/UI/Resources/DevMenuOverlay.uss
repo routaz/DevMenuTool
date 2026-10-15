@@ -60,3 +60,8 @@
 .devmenu-log--error {
     color: #e66a5c;
 }
+
+.devmenu-overlay .unity-foldout__text,
+.devmenu-overlay .unity-base-field__label {
+    color: #dddddd;
+}

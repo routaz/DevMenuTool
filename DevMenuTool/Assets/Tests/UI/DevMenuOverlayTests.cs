@@ -111,10 +111,15 @@ namespace DevMenuTool.Tests.UI
             yield return null;
             var group = Group("OverlayTests");
             var toggle = group.Query<Toggle>().ToList().First(t => t != group.Q<Toggle>(className: Foldout.toggleUssClassName));
-            toggle.value = !toggle.value;
+            toggle.value = true;
+            yield return null;
+            toggle.value = false; // a newValue == false change bubbles up to the foldout
+            yield return null;
+            _overlay.Close();
+            _overlay.Open();
             yield return null;
 
-            Assert.IsTrue(group.value);
+            Assert.IsTrue(Group("OverlayTests").value);
         }
     }
 }
