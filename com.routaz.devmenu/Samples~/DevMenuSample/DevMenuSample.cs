@@ -17,7 +17,7 @@ namespace DevMenuTool.Sample
 
         // --- Plain action, no parameters -------------------------------------
 
-        [DevMenu(KeyCode.F1, "General")]
+        [DevMenu(KeyCode.F3, "General")]
         private void LogState()
         {
             Debug.Log($"[Sample] Gold={_gold}, Player={_playerName}, TimeScale={Time.timeScale}");

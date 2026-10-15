@@ -57,6 +57,10 @@ namespace DevMenuTool.Runtime
 
         private void Update()
         {
+#if ENABLE_LEGACY_INPUT_MANAGER
+            if (DevMenuTool.UI.DevMenuOverlayInput.IsTextInputFocused)
+                return;
+
             var methods = _methodScanner.CachedMethods;
             for (int i = 0; i < methods.Count; i++)
             {
@@ -67,6 +71,7 @@ namespace DevMenuTool.Runtime
                 if (key != KeyCode.None && Input.GetKeyDown(key))
                     _methodInvoker.Invoke(method);
             }
+#endif
         }
     }
 }
